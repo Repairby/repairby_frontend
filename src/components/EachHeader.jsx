@@ -23,7 +23,7 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 20px;
+  font-size: 19px;
   padding: 12px 11px;
   background-color: white;
 

@@ -4,7 +4,7 @@ import { device } from "../Device";
 import { IoIosMenu } from "react-icons/io";
 
 const Home = () => {
-  const [menu, setmenu] = useState(false);
+  const [menu, setMenu] = useState(false);
 
   return (
     <HomePageWrapper>
@@ -18,7 +18,7 @@ const Home = () => {
         </MenuBox>
         <Menubar
           onClick={() => {
-            setmenu(!menu);
+            setMenu(!menu);
           }}
         >
           <IoIosMenu className="IoMenu" />

@@ -14,7 +14,7 @@ const Home = () => {
           <Menu>회사소개</Menu>
           <Menu>고객센터</Menu>
           <Menu>내 견적 조회</Menu>
-          <MainMenu>무료 견적 받기</MainMenu>
+          <MainMenu href="/e_request/">무료 견적 받기</MainMenu>
         </MenuBox>
         <Menubar
           onClick={() => {
@@ -77,6 +77,7 @@ const Menu = styled.a`
   font-size: 16px;
   margin-right: 30px;
   cursor: pointer;
+  background-color: white;
 
   @media ${device.mobile} {
     width: 100%;
@@ -98,6 +99,7 @@ const MainMenu = styled.a`
   padding: 13px;
   border-radius: 40px;
   cursor: pointer;
+  background-color: white;
 
   @media ${device.mobile} {
     width: 100%;

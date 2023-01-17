@@ -24,7 +24,7 @@ const RepairList2 = [
   ["리퍼"],
 ];
 
-const PhoneRepairChoicePage2 = ({ clickNumber }) => {
+const PhoneRepairChoicePage2 = ({ clickNumber, setProcessCount }) => {
   const [listClickNumber, setListClickNumber] = useState(-1);
   const [underListClickNumber19, setUnderListClickNumber19] = useState(-1);
   const [ClickNumber19, setClickNumber19] = useState(false);
@@ -57,7 +57,10 @@ const PhoneRepairChoicePage2 = ({ clickNumber }) => {
                 <RepairListBox
                   key={index}
                   id={index}
-                  onClick={() => setListClickNumber(index)}
+                  onClick={() => {
+                    setListClickNumber(index);
+                    setProcessCount(3);
+                  }}
                   listClickNumber={listClickNumber}
                 >
                   {props}
@@ -74,6 +77,7 @@ const PhoneRepairChoicePage2 = ({ clickNumber }) => {
                   onClick={() => {
                     setUnderListClickNumber19(index);
                     setClickNumber19(true);
+                    setProcessCount(3);
                   }}
                   underListClickNumber19={underListClickNumber19}
                 >

@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import EachHeader from "../components/EachHeader";
 import MainPhoneRepairChoice from "./EachRepairChoice/MainPhoneRepairChoice";
-import PhoneRepairChoicePage2 from "./EachRepairChoice/PhoneRepairChoicePage2";
+import PhoneRepairChoice2 from "./EachRepairChoice/PhoneRepairChoice2";
+import PhoneModelChocie3 from "./EachRepairChoice/ PhoneModelChocie3";
 
 const RepairList = [
   "액정 및 터치 문제",
@@ -37,7 +38,12 @@ const PhoneRepair = () => {
             setClickNumber={setClickNumber}
           />
         ) : processCount === 2 ? (
-          <PhoneRepairChoicePage2 clickNumber={clickNumber} />
+          <PhoneRepairChoice2
+            clickNumber={clickNumber}
+            setProcessCount={setProcessCount}
+          />
+        ) : processCount === 3 ? (
+          <PhoneModelChocie3 />
         ) : null}
       </MobileContainer>
     </MobileWrapper>

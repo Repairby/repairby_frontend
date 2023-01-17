@@ -19,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
       -webkit-appearance: none;
          -moz-appearance: none;
               appearance: none;
+              outline: none;
   }
   input:focus {
     outline: none;

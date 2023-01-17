@@ -23,6 +23,8 @@ const RepairList = [
 const PhoneRepair = () => {
   const [processCount, setProcessCount] = useState(1);
   const [clickNumber, setClickNumber] = useState(-1);
+  const [listClickNumber, setListClickNumber] = useState(-1);
+  const [underListClickNumber19, setUnderListClickNumber19] = useState(-1);
 
   return (
     <MobileWrapper>
@@ -36,11 +38,18 @@ const PhoneRepair = () => {
           <MainPhoneRepairChoice
             setProcessCount={setProcessCount}
             setClickNumber={setClickNumber}
+            clickNumber={clickNumber}
+            setListClickNumber={setListClickNumber}
+            setUnderListClickNumber19={setUnderListClickNumber19}
           />
         ) : processCount === 2 ? (
           <PhoneRepairChoice2
             clickNumber={clickNumber}
             setProcessCount={setProcessCount}
+            listClickNumber={listClickNumber}
+            setListClickNumber={setListClickNumber}
+            underListClickNumber19={underListClickNumber19}
+            setUnderListClickNumber19={setUnderListClickNumber19}
           />
         ) : processCount === 3 ? (
           <PhoneModelChocie3 />

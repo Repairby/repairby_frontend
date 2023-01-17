@@ -24,9 +24,14 @@ const RepairList2 = [
   ["리퍼"],
 ];
 
-const PhoneRepairChoicePage2 = ({ clickNumber, setProcessCount }) => {
-  const [listClickNumber, setListClickNumber] = useState(-1);
-  const [underListClickNumber19, setUnderListClickNumber19] = useState(-1);
+const PhoneRepairChoicePage2 = ({
+  clickNumber,
+  setProcessCount,
+  setListClickNumber,
+  listClickNumber,
+  setUnderListClickNumber19,
+  underListClickNumber19,
+}) => {
   const [ClickNumber19, setClickNumber19] = useState(false);
 
   return (
@@ -66,8 +71,10 @@ const PhoneRepairChoicePage2 = ({ clickNumber, setProcessCount }) => {
                   {props}
                 </RepairListBox>
               ))}
-          {(ClickNumber19 === true && clickNumber === 0) ||
-          (clickNumber === 9 && ClickNumber19 === true) ? (
+          {(clickNumber === 0 && ClickNumber19 === true) ||
+          (clickNumber === 9 && ClickNumber19 === true) ||
+          (clickNumber === 0 && listClickNumber > -1) ||
+          (clickNumber === 9 && listClickNumber > -1) ? (
             <UnderQuestionWrapper>
               <UnderQuestionTitle>수리 희망 부품</UnderQuestionTitle>
               {RepairList2[clickNumber][1].map((props, index) => (

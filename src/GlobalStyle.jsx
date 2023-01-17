@@ -8,6 +8,21 @@ const GlobalStyle = createGlobalStyle`
         color : black;
         text-decoration: none;
       }
+    body{
+        -ms-overflow-style: none;
+      }
+        
+      ::-webkit-scrollbar {
+        display: none;
+      }
+  input {
+      -webkit-appearance: none;
+         -moz-appearance: none;
+              appearance: none;
+  }
+  input:focus {
+    outline: none;
+}
 `;
 
 export default GlobalStyle;

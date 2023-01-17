@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import EachHeader from "../components/EachHeader";
+import { useNavigate } from "react-router-dom";
 
 const EstimageRequest = () => {
   const [menu1, setMenu1] = useState(false);
   const [menu2, setMenu2] = useState(false);
+  const navigate = useNavigate();
 
   const menuClick = num => {
     if (num === 1) {
@@ -14,6 +16,16 @@ const EstimageRequest = () => {
       setMenu1(false);
       setMenu2(true);
     } else {
+    }
+  };
+
+  const nextButton = () => {
+    if (menu1 === true) {
+      navigate("/request/");
+    } else if (menu2 === true) {
+      alert("이 서비스는 현재 운영중이 아닙니다");
+    } else {
+      alert("서비스를 선택하세요");
     }
   };
 
@@ -47,10 +59,14 @@ const EstimageRequest = () => {
               Repairby를 통해 판매할 수도 있어요.
             </Described2>
           </AnswerBox2>
-          <AnswerBox>📱 &nbsp; 리퍼기기 구매하기</AnswerBox>
-          <AnswerBox>💻 &nbsp; 리퍼기기 렌탈하기</AnswerBox>
+          <AnswerBox onClick={() => alert("운영중인 서비스가 아닙니다")}>
+            📱 &nbsp; 리퍼기기 구매하기
+          </AnswerBox>
+          <AnswerBox onClick={() => alert("운영중인 서비스가 아닙니다")}>
+            💻 &nbsp; 리퍼기기 렌탈하기
+          </AnswerBox>
         </AnswerBoxWrapper>
-        <AgreeBox>동의하고 진행하기</AgreeBox>
+        <AgreeBox onClick={nextButton}>동의하고 진행하기</AgreeBox>
       </Container>
     </EstimageRequestWrapper>
   );
@@ -82,7 +98,7 @@ const PercentBar = styled.div`
 `;
 
 const Percent = styled.div`
-  padding-left: 30px;
+  padding-left: 10%;
   margin-top: 10px;
   font-size: 12px;
 `;

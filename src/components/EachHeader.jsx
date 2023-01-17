@@ -6,11 +6,23 @@ import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import { GrClose } from "react-icons/gr";
 
-const EachHeader = ({ title }) => {
+const EachHeader = ({ title, processCount, setProcessCount }) => {
   const navigate = useNavigate();
+
+  const backButton = processCount => {
+    if (processCount >= 2) {
+      setProcessCount(processCount - 1);
+    } else {
+      navigate(-1);
+    }
+  };
+
   return (
     <HeaderContainer>
-      <IoIosArrowBack className="IoArrowBack" onClick={() => navigate(-1)} />
+      <IoIosArrowBack
+        className="IoArrowBack"
+        onClick={() => backButton(processCount)}
+      />
       {title}
       <GrClose className="IoClose" />
     </HeaderContainer>

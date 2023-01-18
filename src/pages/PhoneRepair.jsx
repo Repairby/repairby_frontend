@@ -4,6 +4,7 @@ import EachHeader from "../components/EachHeader";
 import MainPhoneRepairChoice from "./EachRepairChoice/MainPhoneRepairChoice";
 import PhoneRepairChoice2 from "./EachRepairChoice/PhoneRepairChoice2";
 import PhoneModelChocie3 from "./EachRepairChoice/ PhoneModelChocie3";
+import RepairDetailChocie4 from "./EachRepairChoice/RepairDetailChocie4";
 
 const RepairList = [
   "액정 및 터치 문제",
@@ -25,6 +26,8 @@ const PhoneRepair = () => {
   const [clickNumber, setClickNumber] = useState(-1);
   const [listClickNumber, setListClickNumber] = useState(-1);
   const [underListClickNumber19, setUnderListClickNumber19] = useState(-1);
+  const [choice4RepairMethodNumber, setChoice4RepairMethodNumber] =
+    useState(-1);
 
   return (
     <MobileWrapper>
@@ -52,7 +55,13 @@ const PhoneRepair = () => {
             setUnderListClickNumber19={setUnderListClickNumber19}
           />
         ) : processCount === 3 ? (
-          <PhoneModelChocie3 />
+          <PhoneModelChocie3 setProcessCount={setProcessCount} />
+        ) : processCount === 4 ? (
+          <RepairDetailChocie4
+            setProcessCount={setProcessCount}
+            setChoice4RepairMethodNumber={setChoice4RepairMethodNumber}
+            choice4RepairMethodNumber={choice4RepairMethodNumber}
+          />
         ) : null}
       </MobileContainer>
     </MobileWrapper>

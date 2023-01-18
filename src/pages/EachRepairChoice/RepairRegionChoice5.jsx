@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const RepairRegionChoice5 = ({ setProcessCount }) => {
   return (
@@ -17,7 +18,10 @@ const RepairRegionChoice5 = ({ setProcessCount }) => {
           <SearchButton>주소 검색</SearchButton>
         </InputWrapper>
       </MoblieScroll>
-      <NextBox>다음</NextBox>
+
+      <Link to="/request/success/">
+        <NextBox onClick={() => setProcessCount(-1)}>다음</NextBox>
+      </Link>
     </>
   );
 };

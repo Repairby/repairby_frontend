@@ -16,7 +16,13 @@ const RepairList = [
   "리퍼",
 ];
 
-const MainPhoneRepairChoice = ({ setProcessCount, setClickNumber }) => {
+const MainPhoneRepairChoice = ({
+  setProcessCount,
+  setClickNumber,
+  clickNumber,
+  setListClickNumber,
+  setUnderListClickNumber19,
+}) => {
   const [ectClick, setEctClick] = useState(false);
   const [questClick, setQuestClick] = useState(-1);
 
@@ -39,8 +45,11 @@ const MainPhoneRepairChoice = ({ setProcessCount, setClickNumber }) => {
                 setEctClick(false);
                 setProcessCount(2);
                 setClickNumber(index);
+                setListClickNumber(-1);
+                setUnderListClickNumber19(-1);
               }}
               questClick={questClick}
+              clickNumber={clickNumber}
             >
               {quest}
             </QuestBox>
@@ -65,7 +74,11 @@ const MainPhoneRepairChoice = ({ setProcessCount, setClickNumber }) => {
           </EctBox>
         </QuestBoxWrapper>
       </MoblieScroll>
-      <NextBox ectClick={ectClick} questClick={questClick}>
+      <NextBox
+        ectClick={ectClick}
+        questClick={questClick}
+        clickNumber={clickNumber}
+      >
         다음
       </NextBox>
     </>
@@ -112,8 +125,10 @@ const QuestBoxWrapper = styled.div`
 `;
 
 const QuestBox = styled.a`
-  border: ${({ id, questClick }) => {
-    return id === questClick ? "1.5px solid black" : "1px solid #c9c9c9";
+  border: ${({ id, questClick, clickNumber }) => {
+    return id === questClick || id === clickNumber
+      ? "1.5px solid black"
+      : "1px solid #c9c9c9";
   }};
   border-radius: 10px;
   white-space: pre-line;
@@ -127,8 +142,8 @@ const QuestBox = styled.a`
   text-align: center;
   line-height: 20px;
   font-size: 14px;
-  font-weight: ${({ id, questClick }) => {
-    return id === questClick ? "bold" : "normal";
+  font-weight: ${({ id, questClick, clickNumber }) => {
+    return id === questClick || id === clickNumber ? "bold" : "normal";
   }};
 `;
 
@@ -187,8 +202,10 @@ const NextBox = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 18px;
-  background-color: ${({ ectClick, questClick }) => {
-    return ectClick === true || questClick > -1 ? "black" : "#C9C9C9";
+  background-color: ${({ ectClick, questClick, clickNumber }) => {
+    return ectClick === true || questClick > -1 || clickNumber > -1
+      ? "black"
+      : "#C9C9C9";
   }};
   color: white;
 `;

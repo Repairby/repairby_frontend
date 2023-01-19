@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { BsSearch } from "react-icons/bs";
 
-const PhoneModelChocie3 = () => {
+const PhoneModelChocie3 = ({ setProcessCount }) => {
   return (
     <>
       <MoblieScroll>
@@ -17,7 +17,7 @@ const PhoneModelChocie3 = () => {
           <PhoneModelInput placeholder="아이폰, 아이패드, 애플워치, 맥북, 에어팟 등" />
         </PhoneModelInputWrapper>
       </MoblieScroll>
-      <NextBox>다음</NextBox>
+      <NextBox onClick={() => setProcessCount(4)}>다음</NextBox>
     </>
   );
 };

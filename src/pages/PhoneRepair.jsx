@@ -4,6 +4,8 @@ import EachHeader from "../components/EachHeader";
 import MainPhoneRepairChoice from "./EachRepairChoice/MainPhoneRepairChoice";
 import PhoneRepairChoice2 from "./EachRepairChoice/PhoneRepairChoice2";
 import PhoneModelChocie3 from "./EachRepairChoice/ PhoneModelChocie3";
+import RepairDetailChocie4 from "./EachRepairChoice/RepairDetailChocie4";
+import RepairRegionChoice5 from "./EachRepairChoice/RepairRegionChoice5";
 
 const RepairList = [
   "액정 및 터치 문제",
@@ -23,6 +25,10 @@ const RepairList = [
 const PhoneRepair = () => {
   const [processCount, setProcessCount] = useState(1);
   const [clickNumber, setClickNumber] = useState(-1);
+  const [listClickNumber, setListClickNumber] = useState(-1);
+  const [underListClickNumber19, setUnderListClickNumber19] = useState(-1);
+  const [choice4RepairMethodNumber, setChoice4RepairMethodNumber] =
+    useState(-1);
 
   return (
     <MobileWrapper>
@@ -36,15 +42,32 @@ const PhoneRepair = () => {
           <MainPhoneRepairChoice
             setProcessCount={setProcessCount}
             setClickNumber={setClickNumber}
+            clickNumber={clickNumber}
+            setListClickNumber={setListClickNumber}
+            setUnderListClickNumber19={setUnderListClickNumber19}
           />
         ) : processCount === 2 ? (
           <PhoneRepairChoice2
             clickNumber={clickNumber}
             setProcessCount={setProcessCount}
+            listClickNumber={listClickNumber}
+            setListClickNumber={setListClickNumber}
+            underListClickNumber19={underListClickNumber19}
+            setUnderListClickNumber19={setUnderListClickNumber19}
           />
         ) : processCount === 3 ? (
-          <PhoneModelChocie3 />
-        ) : null}
+          <PhoneModelChocie3 setProcessCount={setProcessCount} />
+        ) : processCount === 4 ? (
+          <RepairDetailChocie4
+            setProcessCount={setProcessCount}
+            setChoice4RepairMethodNumber={setChoice4RepairMethodNumber}
+            choice4RepairMethodNumber={choice4RepairMethodNumber}
+          />
+        ) : processCount === 5 ? (
+          <RepairRegionChoice5 setProcessCount={setProcessCount} />
+        ) : (
+          <div>error</div>
+        )}
       </MobileContainer>
     </MobileWrapper>
   );

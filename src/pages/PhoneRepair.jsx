@@ -5,6 +5,7 @@ import MainPhoneRepairChoice from "./EachRepairChoice/MainPhoneRepairChoice";
 import PhoneRepairChoice2 from "./EachRepairChoice/PhoneRepairChoice2";
 import PhoneModelChocie3 from "./EachRepairChoice/ PhoneModelChocie3";
 import RepairDetailChocie4 from "./EachRepairChoice/RepairDetailChocie4";
+import RepairRegionChoice5 from "./EachRepairChoice/RepairRegionChoice5";
 
 const RepairList = [
   "액정 및 터치 문제",
@@ -62,7 +63,11 @@ const PhoneRepair = () => {
             setChoice4RepairMethodNumber={setChoice4RepairMethodNumber}
             choice4RepairMethodNumber={choice4RepairMethodNumber}
           />
-        ) : null}
+        ) : processCount === 5 ? (
+          <RepairRegionChoice5 setProcessCount={setProcessCount} />
+        ) : (
+          <div>error</div>
+        )}
       </MobileContainer>
     </MobileWrapper>
   );

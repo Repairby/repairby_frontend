@@ -80,7 +80,7 @@ const RepairDetailChocie4 = ({
           </form>
         </ImageInputWrapper>
       </MoblieScroll>
-      <NextBox onClick={() => setProcessCount(4)}>다음</NextBox>
+      <NextBox onClick={() => setProcessCount(5)}>다음</NextBox>
     </>
   );
 };

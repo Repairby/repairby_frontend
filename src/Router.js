@@ -5,6 +5,7 @@ import EstimageRequest from "./pages/ EstimateRequest";
 import styled from "styled-components";
 import PhoneRepair from "./pages/PhoneRepair";
 import RequestSuccess from "./pages/RequestSuccess";
+import MyEstimatePage from "./pages/MyEstimatePage";
 
 const Router = () => {
   return (
@@ -14,6 +15,7 @@ const Router = () => {
         <Route path="/e_request/" element={<EstimageRequest />} />
         <Route path="/request/" element={<PhoneRepair />} />
         <Route path="/request/success/" element={<RequestSuccess />} />
+        <Route path="/estimate/" element={<MyEstimatePage />} />
       </Routes>
     </BrowserRouter>
   );

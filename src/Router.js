@@ -6,6 +6,7 @@ import styled from "styled-components";
 import PhoneRepair from "./pages/PhoneRepair";
 import RequestSuccess from "./pages/RequestSuccess";
 import MyEstimatePage from "./pages/MyEstimatePage";
+import Login from "./pages/Login/Login";
 
 const Router = () => {
   return (
@@ -16,6 +17,7 @@ const Router = () => {
         <Route path="/request/" element={<PhoneRepair />} />
         <Route path="/request/success/" element={<RequestSuccess />} />
         <Route path="/estimate/" element={<MyEstimatePage />} />
+        <Route path="/user_login/" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

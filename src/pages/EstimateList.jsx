@@ -62,6 +62,26 @@ const EstimateList = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState(2);
   const [hover, setHover] = useState(-1);
+  const [recommendationClick, setRecommendationClick] = useState(true);
+  const [distanceClick, setDistanceClick] = useState(false);
+  const [careerClick, setCareerClick] = useState(false);
+
+  const MenuClick = num => {
+    if (num === 1) {
+      setRecommendationClick(true);
+      setDistanceClick(false);
+      setCareerClick(false);
+    } else if (num === 2) {
+      setRecommendationClick(false);
+      setDistanceClick(true);
+      setCareerClick(false);
+    } else if (num === 3) {
+      setRecommendationClick(false);
+      setDistanceClick(false);
+      setCareerClick(true);
+    } else {
+    }
+  };
 
   return (
     <MobileWrapper>
@@ -76,9 +96,21 @@ const EstimateList = () => {
         </HeaderContainer>
         <MoblieScroll>
           <Menu>
-            <RecommendationOrder>추천순</RecommendationOrder>
-            <DistanceOrder>거리순</DistanceOrder>
-            <CareerOrder>경력순</CareerOrder>
+            <RecommendationOrder
+              onClick={() => MenuClick(1)}
+              recommendationClick={recommendationClick}
+            >
+              추천순
+            </RecommendationOrder>
+            <DistanceOrder
+              onClick={() => MenuClick(2)}
+              distanceClick={distanceClick}
+            >
+              거리순
+            </DistanceOrder>
+            <CareerOrder onClick={() => MenuClick(3)} careerClick={careerClick}>
+              경력순
+            </CareerOrder>
           </Menu>
           {CompanyEstimateList.map((props, index) => (
             <EstimateBoxWrapper key={index}>
@@ -272,19 +304,35 @@ const Menu = styled.div`
   display: flex;
   justify-content: center;
   color: white;
-  padding: 15px 0;
+  padding-top: 3px;
+  padding-bottom: 15px;
 `;
 
 const RecommendationOrder = styled.div`
-  border-bottom: 1px solid white;
+  color: ${({ recommendationClick }) => {
+    return recommendationClick ? "white" : "gray";
+  }};
+  border-bottom: ${({ recommendationClick }) => {
+    return recommendationClick ? "1px solid white" : "1px solid gray";
+  }};
   margin-right: 25px;
 `;
 
 const DistanceOrder = styled.div`
-  border-bottom: 1px solid white;
+  color: ${({ distanceClick }) => {
+    return distanceClick ? "white" : "gray";
+  }};
+  border-bottom: ${({ distanceClick }) => {
+    return distanceClick ? "1px solid white" : "1px solid gray";
+  }};
   margin-right: 25px;
 `;
 
 const CareerOrder = styled.div`
-  border-bottom: 1px solid white;
+  color: ${({ careerClick }) => {
+    return careerClick ? "white" : "gray";
+  }};
+  border-bottom: ${({ careerClick }) => {
+    return careerClick ? "1px solid white" : "1px solid gray";
+  }};
 `;

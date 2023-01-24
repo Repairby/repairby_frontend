@@ -43,7 +43,7 @@ const RequestSuccess = () => {
             </RequestDetailInfoWrapper>
           </RequestDetailWrapper>
         </MoblieScroll>
-        <Link to="/estimate/">
+        <Link to="/MyEstimatePage/">
           <NextBox>내 견적 조회하기</NextBox>
         </Link>
       </MobileContainer>

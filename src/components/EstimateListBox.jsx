@@ -10,7 +10,7 @@ const EstimateListBox = ({
   company,
 }) => {
   return (
-    <EstimateListBoxContainer>
+    <EstimateListBoxContainer href="/estimate/">
       <CreateAt>{createAt}</CreateAt>
       <EstimateBox>
         <EstimateId>{estimateId}</EstimateId>
@@ -32,7 +32,7 @@ const EstimateListBox = ({
 
 export default EstimateListBox;
 
-const EstimateListBoxContainer = styled.div`
+const EstimateListBoxContainer = styled.a`
   margin: 20px 0;
   cursor: pointer;
 `;

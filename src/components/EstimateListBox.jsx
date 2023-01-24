@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { FaApple } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const EstimateListBox = ({
   createAt,
@@ -10,30 +11,33 @@ const EstimateListBox = ({
   company,
 }) => {
   return (
-    <EstimateListBoxContainer>
-      <CreateAt>{createAt}</CreateAt>
-      <EstimateBox>
-        <EstimateId>{estimateId}</EstimateId>
-        <DetailBox>
-          <CompanyIconBox>
-            <FaApple />
-          </CompanyIconBox>
-          <DetailDescription>
-            <Company>{company}</Company>
-            <PhoneModel>{phoneModel}</PhoneModel>
-            <BreakdownDetail>{breakdownDetail}</BreakdownDetail>
-          </DetailDescription>
-        </DetailBox>
-        <CompareEstimateCaseNumber>0건 비교견적 중</CompareEstimateCaseNumber>
-      </EstimateBox>
-    </EstimateListBoxContainer>
+    <Link to="/estimate/">
+      <EstimateListBoxContainer>
+        <CreateAt>{createAt}</CreateAt>
+        <EstimateBox>
+          <EstimateId>{estimateId}</EstimateId>
+          <DetailBox>
+            <CompanyIconBox>
+              <FaApple />
+            </CompanyIconBox>
+            <DetailDescription>
+              <Company>{company}</Company>
+              <PhoneModel>{phoneModel}</PhoneModel>
+              <BreakdownDetail>{breakdownDetail}</BreakdownDetail>
+            </DetailDescription>
+          </DetailBox>
+          <CompareEstimateCaseNumber>0건 비교견적 중</CompareEstimateCaseNumber>
+        </EstimateBox>
+      </EstimateListBoxContainer>
+    </Link>
   );
 };
 
 export default EstimateListBox;
 
 const EstimateListBoxContainer = styled.div`
-  margin: 20px 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
   cursor: pointer;
 `;
 

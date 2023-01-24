@@ -32,8 +32,9 @@ const EstimateListBox = ({
 
 export default EstimateListBox;
 
-const EstimateListBoxContainer = styled.a`
-  margin: 20px 0;
+const EstimateListBoxContainer = styled.div`
+  margin-top: 10px;
+  margin-bottom: 20px;
   cursor: pointer;
 `;
 

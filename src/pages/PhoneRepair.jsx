@@ -7,21 +7,6 @@ import PhoneModelChocie3 from "./EachRepairChoice/ PhoneModelChocie3";
 import RepairDetailChocie4 from "./EachRepairChoice/RepairDetailChocie4";
 import RepairRegionChoice5 from "./EachRepairChoice/RepairRegionChoice5";
 
-const RepairList = [
-  "액정 및 터치 문제",
-  "스피커 등 음향 문제",
-  ["하우징 파손", <br />, "(뒷판, 외관 케이스)"],
-  "버튼 불량",
-  "카메라/후레쉬 문제",
-  ["각종 잭 불량", <br />, "(충전, 아이폰)"],
-  "Wifi / 블루투스 / GPS 불량",
-  ["메인보드", <br />, "(전원이 켜지지 않음)"],
-  ["각종 센서 불량", <br />, "(홍채, Face ID)"],
-  "배터리 교체",
-  "진동 문제",
-  "리퍼",
-];
-
 const PhoneRepair = () => {
   const [processCount, setProcessCount] = useState(1);
   const [clickNumber, setClickNumber] = useState(-1);

@@ -1,8 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import DaumPostcode from "react-daum-postcode";
 
-const RepairRegionChoice5 = ({ setProcessCount }) => {
+const RepairRegionChoice5 = ({
+  setProcessCount,
+  setAddressDetail,
+  addressDetail,
+}) => {
+  let navigate = useNavigate();
+  const [address, setAddress] = useState(""); // 주소
+  const [isOpenPost, setIsOpenPost] = useState(false);
+
+  const onChangeOpenPost = () => {
+    setIsOpenPost(true);
+  };
+
+  const onCompletePost = data => {
+    let fullAddr = data.address;
+    let extraAddr = "";
+
+    if (data.addressType === "R") {
+      if (data.bname !== "") {
+        extraAddr += data.bname;
+      }
+
+      if (data.buildingName !== "") {
+        extraAddr +=
+          extraAddr !== "" ? `, ${data.buildingName}` : data.buildingName;
+      }
+
+      fullAddr += extraAddr !== "" ? ` (${extraAddr})` : "";
+    }
+
+    setAddress(data.zonecode);
+    setAddressDetail(fullAddr);
+    setIsOpenPost(false);
+  };
+
+  const NextBoxButton = () => {
+    if (addressDetail === "") {
+      alert("주소를 입력해주세요");
+    } else {
+      setProcessCount(-1);
+      navigate("/request/success/");
+    }
+    return;
+  };
+
+  const postCodeStyle = {
+    display: "block",
+    position: "relative",
+    top: "0%",
+    width: "88%",
+    height: "500px",
+    padding: "7px",
+    margin: "0 auto",
+  };
+
   return (
     <>
       <MoblieScroll>
@@ -14,14 +69,25 @@ const RepairRegionChoice5 = ({ setProcessCount }) => {
         </Question>
         <InputWrapper>
           <InputTitle>파손 부분 설명 및 요청사항</InputTitle>
-          <Input />
-          <SearchButton>주소 검색</SearchButton>
+          <Input
+            onClick={onChangeOpenPost}
+            type="text"
+            readOnly
+            value={addressDetail}
+          />
+          {isOpenPost ? (
+            <div>
+              <DaumPostcode
+                style={postCodeStyle}
+                autoClose
+                onComplete={onCompletePost}
+              />
+            </div>
+          ) : null}
+          <SearchButton onClick={onChangeOpenPost}>주소 검색</SearchButton>
         </InputWrapper>
       </MoblieScroll>
-
-      <Link to="/request/success/">
-        <NextBox onClick={() => setProcessCount(-1)}>다음</NextBox>
-      </Link>
+      <NextBox onClick={NextBoxButton}>다음</NextBox>
     </>
   );
 };
@@ -89,7 +155,7 @@ const Input = styled.input`
   border-bottom: 1px solid #c9c9c9;
   width: 88%;
   height: 30px;
-  font-size: 16px;
+  font-size: 13px;
   margin: 0 auto;
   display: flex;
   justify-content: center;

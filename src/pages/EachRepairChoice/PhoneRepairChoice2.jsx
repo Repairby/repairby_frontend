@@ -31,9 +31,9 @@ const PhoneRepairChoicePage2 = ({
   listClickNumber,
   setUnderListClickNumber19,
   underListClickNumber19,
+  setRepairContents,
 }) => {
   const [ClickNumber19, setClickNumber19] = useState(false);
-
   return (
     <>
       <MoblieScroll>
@@ -52,6 +52,7 @@ const PhoneRepairChoicePage2 = ({
                   onClick={() => {
                     setListClickNumber(index);
                     setClickNumber19(true);
+                    setRepairContents(props);
                   }}
                   listClickNumber={listClickNumber}
                 >
@@ -65,6 +66,7 @@ const PhoneRepairChoicePage2 = ({
                   onClick={() => {
                     setListClickNumber(index);
                     setProcessCount(3);
+                    setRepairContents(props);
                   }}
                   listClickNumber={listClickNumber}
                 >

@@ -19,10 +19,20 @@ const PhoneRepair = () => {
   // 네번째 페이지에서 희망 수리 방식
   const [choice4RepairMethodNumber, setChoice4RepairMethodNumber] =
     useState(-1);
-  // 견적서 변수들
 
+  ///// 견적서 변수들
+  // 제품 정보
+  const [productInformation, setProductInformation] = useState("");
+  // 수리 내용
+  const [repairContents, setRepairContents] = useState("");
+  // 수리 상세 요청 내용
+  const [requests, setRequests] = useState("");
+  // 희망 수리 방식
+  const [receipt, setReceipt] = useState("");
   // 5 page 상세주소 변수
   const [addressDetail, setAddressDetail] = useState("");
+  // 이미지
+  const [image, setImage] = useState("");
 
   return (
     <MobileWrapper>
@@ -48,20 +58,32 @@ const PhoneRepair = () => {
             setListClickNumber={setListClickNumber}
             underListClickNumber19={underListClickNumber19}
             setUnderListClickNumber19={setUnderListClickNumber19}
+            setRepairContents={setRepairContents}
           />
         ) : processCount === 3 ? (
-          <PhoneModelChocie3 setProcessCount={setProcessCount} />
+          <PhoneModelChocie3
+            setProcessCount={setProcessCount}
+            setProductInformation={setProductInformation}
+          />
         ) : processCount === 4 ? (
           <RepairDetailChocie4
             setProcessCount={setProcessCount}
             setChoice4RepairMethodNumber={setChoice4RepairMethodNumber}
             choice4RepairMethodNumber={choice4RepairMethodNumber}
+            setRequests={setRequests}
+            setReceipt={setReceipt}
+            setImage={setImage}
           />
         ) : processCount === 5 ? (
           <RepairRegionChoice5
             setProcessCount={setProcessCount}
             setAddressDetail={setAddressDetail}
+            productInformation={productInformation}
+            repairContents={repairContents}
+            requests={requests}
+            receipt={receipt}
             addressDetail={addressDetail}
+            image={image}
           />
         ) : (
           <div>error</div>

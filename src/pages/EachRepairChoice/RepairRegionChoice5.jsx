@@ -6,7 +6,12 @@ import DaumPostcode from "react-daum-postcode";
 const RepairRegionChoice5 = ({
   setProcessCount,
   setAddressDetail,
+  productInformation,
+  repairContents,
+  requests,
+  receipt,
   addressDetail,
+  image,
 }) => {
   let navigate = useNavigate();
   const [address, setAddress] = useState(""); // 주소
@@ -47,6 +52,13 @@ const RepairRegionChoice5 = ({
     }
     return;
   };
+
+  console.log(productInformation);
+  console.log(repairContents);
+  console.log(requests);
+  console.log(receipt);
+  console.log(addressDetail);
+  console.log(image);
 
   const postCodeStyle = {
     display: "block",

@@ -17,6 +17,15 @@ const RepairRegionChoice5 = ({
   const [address, setAddress] = useState(""); // 주소
   const [isOpenPost, setIsOpenPost] = useState(false);
 
+  const estimateValue = {
+    productInformation: productInformation,
+    repairContents: repairContents,
+    requests: requests,
+    receipt: receipt,
+    addressDetail: addressDetail,
+    image: image,
+  };
+
   const onChangeOpenPost = () => {
     setIsOpenPost(true);
   };
@@ -48,17 +57,12 @@ const RepairRegionChoice5 = ({
       alert("주소를 입력해주세요");
     } else {
       setProcessCount(-1);
-      navigate("/request/success/");
+      navigate("/request/success/", {
+        state: estimateValue,
+      });
     }
     return;
   };
-
-  console.log(productInformation);
-  console.log(repairContents);
-  console.log(requests);
-  console.log(receipt);
-  console.log(addressDetail);
-  console.log(image);
 
   const postCodeStyle = {
     display: "block",

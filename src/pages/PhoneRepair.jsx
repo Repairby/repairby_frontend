@@ -16,9 +16,8 @@ const PhoneRepair = () => {
   const [underListClickNumber19, setUnderListClickNumber19] = useState(-1);
   // 두번째 페이지에서 몇번째 선택지를 선택했는지
   const [listClickNumber, setListClickNumber] = useState(-1);
-  // 네번째 페이지에서 희망 수리 방식
-  const [choice4RepairMethodNumber, setChoice4RepairMethodNumber] =
-    useState(-1);
+  // 네번째 페이지에서 희망 수리 방식 / 첫번째 선택지로 고정이라 0 값
+  const [choice4RepairMethodNumber, setChoice4RepairMethodNumber] = useState(0);
 
   ///// 견적서 변수들
   // 제품 정보

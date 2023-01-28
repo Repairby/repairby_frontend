@@ -27,7 +27,7 @@ const PhoneRepair = () => {
   // 수리 상세 요청 내용
   const [requests, setRequests] = useState("");
   // 희망 수리 방식
-  const [receipt, setReceipt] = useState("");
+  const [receipt, setReceipt] = useState("매장 방문 수리");
   // 5 page 상세주소 변수
   const [addressDetail, setAddressDetail] = useState("");
   // 이미지

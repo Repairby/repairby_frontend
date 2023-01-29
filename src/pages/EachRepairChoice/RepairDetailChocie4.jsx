@@ -8,6 +8,9 @@ const RepairDetailChocie4 = ({
   setProcessCount,
   choice4RepairMethodNumber,
   setChoice4RepairMethodNumber,
+  setRequests,
+  setReceipt,
+  setImage,
 }) => {
   const imgFile = useRef();
   const [imageFile, setImageFile] = useState("");
@@ -15,6 +18,7 @@ const RepairDetailChocie4 = ({
 
   const saveImgFile = () => {
     const file = imgFile.current.files[0];
+    setImage(file);
     const reader = new FileReader();
     reader.readAsDataURL(file);
     return new Promise(resolve => {
@@ -36,7 +40,10 @@ const RepairDetailChocie4 = ({
         </Question>
         <InputWrapper>
           <InputTitle>파손 부분 설명 및 요청사항</InputTitle>
-          <Input placeholder="설명이 자세할 수록 견적이 정확해요" />
+          <Input
+            placeholder="설명이 자세할 수록 견적이 정확해요"
+            onChange={event => setRequests(event.target.value)}
+          />
         </InputWrapper>
         <RepairMethodWrapper>
           <RepairMethodTitle>희망 수리 방식</RepairMethodTitle>
@@ -47,6 +54,7 @@ const RepairDetailChocie4 = ({
                 id={index}
                 onClick={() => {
                   setChoice4RepairMethodNumber(index);
+                  setReceipt(props);
                 }}
                 choice4RepairMethodNumber={choice4RepairMethodNumber}
               >

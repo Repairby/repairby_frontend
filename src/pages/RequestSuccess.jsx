@@ -3,8 +3,12 @@ import styled from "styled-components";
 import EachHeader from "../components/EachHeader";
 import { Link } from "react-router-dom";
 import { FiCheck } from "react-icons/fi";
+import { useLocation } from "react-router-dom";
 
 const RequestSuccess = () => {
+  const location = useLocation().state;
+  console.log(location);
+
   return (
     <MobileWrapper>
       <MobileContainer>
@@ -23,22 +27,24 @@ const RequestSuccess = () => {
             <RequestDetailInfoWrapper>
               <RequestDetailTitle>요청 내용</RequestDetailTitle>
               <RequestDetailInfo1>
-                제품 정보<span>아이폰14 PRO</span>
+                제품 정보<span>{location.productInformation}</span>
               </RequestDetailInfo1>
               <RequestDetailInfo2>
-                수리 내용<span>색상 문제 / 블랙 스크린</span>
+                수리 내용<span>{location.repairContents}</span>
               </RequestDetailInfo2>
               <hr />
               <RequestDetailTitle>상세 내용</RequestDetailTitle>
               <RequestDetailInfo>수리 상세 요청 내용</RequestDetailInfo>
               <RequestDetailInfoAnswer>
-                블랙 스크린이 뜹니다
+                {location.requests}
               </RequestDetailInfoAnswer>
               <RequestDetailInfo>희망 수리 방식</RequestDetailInfo>
-              <RequestDetailInfoAnswer>매장 방문 수리</RequestDetailInfoAnswer>
+              <RequestDetailInfoAnswer>
+                {location.receipt}
+              </RequestDetailInfoAnswer>
               <RequestDetailInfo>수리 서비스를 받을 지역</RequestDetailInfo>
               <RequestDetailInfoAnswer>
-                강원 춘천시 동내면 춘천순환로 55
+                {location.addressDetail}
               </RequestDetailInfoAnswer>
             </RequestDetailInfoWrapper>
           </RequestDetailWrapper>

@@ -21,7 +21,7 @@ const EstimageRequest = () => {
 
   const nextButton = () => {
     if (menu1 === true) {
-      navigate("/request/");
+      navigate("/user_login/");
     } else if (menu2 === true) {
       alert("이 서비스는 현재 운영중이 아닙니다");
     } else {

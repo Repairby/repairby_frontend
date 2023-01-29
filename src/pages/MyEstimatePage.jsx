@@ -1,45 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AiFillHome } from "react-icons/ai";
 import { GoBell } from "react-icons/go";
 import { VscCircleFilled } from "react-icons/vsc";
 import EstimateListBox from "../components/EstimateListBox";
 import { Link } from "react-router-dom";
-
-const EstimateList = [
-  {
-    createAt: "2023.01.19 14:07",
-    estimateId: "20230119-000002",
-    phoneModel: "아이폰14 PRO",
-    breakdownDetail: "하우징 교체",
-    company: "애플",
-  },
-  {
-    createAt: "2023.01.19 14:07",
-    estimateId: "20230119-000002",
-    phoneModel: "아이폰14 PRO",
-    breakdownDetail: "하우징 교체",
-    company: "애플",
-  },
-  {
-    createAt: "2023.01.19 14:07",
-    estimateId: "20230119-000002",
-    phoneModel: "아이폰14 PRO",
-    breakdownDetail: "하우징 교체",
-    company: "애플",
-  },
-  {
-    createAt: "2023.01.19 14:07",
-    estimateId: "20230119-000002",
-    phoneModel: "아이폰14 PRO",
-    breakdownDetail: "하우징 교체",
-    company: "애플",
-  },
-];
+import axios from "axios";
 
 const MyEstimatePage = () => {
   const [fixMenuButtonClick, setFixMenuButtonClick] = useState(true);
   const [saleMenuButtonClick, setSaleFixMenuButtonClick] = useState(false);
+  const [estimateData, setEstimateData] = useState([]);
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    async function fetchAndSetEstimateData() {
+      axios
+        .get("/member/estimates", { headers: { Authorization: token } })
+        .then(response => {
+          console.log(response.data);
+          setEstimateData(response.data);
+          console.log("응답성공");
+        })
+        .catch(error => {
+          console.log(error);
+          throw new Error(error);
+        });
+    }
+    fetchAndSetEstimateData();
+  }, []);
 
   return (
     <MobileWrapper>
@@ -82,14 +71,14 @@ const MyEstimatePage = () => {
         </EstimateMenu>
         {fixMenuButtonClick === true && saleMenuButtonClick === false ? (
           <EstimateListWrapper>
-            {EstimateList.map((props, index) => (
+            {estimateData.map((props, index) => (
               <EstimateListBox
                 key={index}
-                createAt={props.createAt}
-                estimateId={props.estimateId}
-                phoneModel={props.phoneModel}
-                breakdownDetail={props.breakdownDetail}
-                company={props.company}
+                createAt={props.created_at}
+                estimateId={props.estimate_id}
+                phoneModel={props.product_information}
+                breakdownDetail={props.repair_contents}
+                company={props.manufacturer}
               />
             ))}
           </EstimateListWrapper>

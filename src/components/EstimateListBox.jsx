@@ -10,10 +10,13 @@ const EstimateListBox = ({
   breakdownDetail,
   company,
 }) => {
+  const createAtTime =
+    String(createAt).slice(0, 10) + " " + String(createAt).slice(11, 16);
+
   return (
     <Link to="/estimate/">
       <EstimateListBoxContainer>
-        <CreateAt>{createAt}</CreateAt>
+        <CreateAt>{createAtTime}</CreateAt>
         <EstimateBox>
           <EstimateId>{estimateId}</EstimateId>
           <DetailBox>

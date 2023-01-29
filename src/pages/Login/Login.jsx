@@ -2,6 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { FaComment } from "react-icons/fa";
 
+// kakao login key
+const REST_API_KEY = "2e1887af2cd18d04ddb8fcf700547c24";
+const REDIRECT_URI = "http://localhost:3000/kakao-login";
+const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
 const LoginEstimateBoxList = [
   { title: "아이폰 수리 견적 도착!", price: "280,000원" },
   { title: "내 갤럭시 판매 견적은?", price: "850,000원" },
@@ -41,7 +46,7 @@ const Login = () => {
         <LoginDescription>
           견적 요청 및 내용 확인을 위해 사용자 인증이 필요합니다.
         </LoginDescription>
-        <KakaoLoginButton>
+        <KakaoLoginButton href={KAKAO_AUTH_URL}>
           <FaComment />
           <span>카카오 로그인</span>
         </KakaoLoginButton>
@@ -151,7 +156,7 @@ const LoginDescription = styled.div`
   margin-top: 30px;
 `;
 
-const KakaoLoginButton = styled.div`
+const KakaoLoginButton = styled.a`
   margin: 18px auto;
   display: flex;
   justify-content: center;

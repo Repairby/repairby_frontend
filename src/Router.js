@@ -7,6 +7,7 @@ import RequestSuccess from "./pages/RequestSuccess";
 import MyEstimatePage from "./pages/MyEstimatePage";
 import Login from "./pages/Login/Login";
 import EstimateList from "./pages/EstimateList";
+import KakaoLogin from "./pages/Login/KakaoLogin";
 
 const Router = () => {
   return (
@@ -19,6 +20,7 @@ const Router = () => {
         <Route path="/MyEstimatePage/" element={<MyEstimatePage />} />
         <Route path="/user_login/" element={<Login />} />
         <Route path="/estimate/" element={<EstimateList />} />
+        <Route path="/kakao-login" element={<KakaoLogin />} />
       </Routes>
     </BrowserRouter>
   );

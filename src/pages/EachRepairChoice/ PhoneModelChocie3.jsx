@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { BsSearch } from "react-icons/bs";
 
-const PhoneModelChocie3 = ({ setProcessCount }) => {
+const PhoneModelChocie3 = ({ setProcessCount, setProductInformation }) => {
   return (
     <>
       <MoblieScroll>

@@ -23,8 +23,18 @@ const MainPhoneRepairChoice = ({
   setListClickNumber,
   setUnderListClickNumber19,
 }) => {
+  // 기타 버튼 선택지 boolean
   const [ectClick, setEctClick] = useState(false);
+  // 기타를 제외한 나머지 선택지 number
   const [questClick, setQuestClick] = useState(-1);
+
+  const questBoxClick = () => {
+    if (ectClick === true || questClick > -1 || clickNumber > -1) {
+      setProcessCount(2);
+    } else {
+      return;
+    }
+  };
 
   return (
     <>
@@ -78,6 +88,7 @@ const MainPhoneRepairChoice = ({
         ectClick={ectClick}
         questClick={questClick}
         clickNumber={clickNumber}
+        onClick={questBoxClick}
       >
         다음
       </NextBox>
@@ -207,5 +218,6 @@ const NextBox = styled.div`
       ? "black"
       : "#C9C9C9";
   }};
+  cursor: pointer;
   color: white;
 `;

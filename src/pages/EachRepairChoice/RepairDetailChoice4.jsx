@@ -16,6 +16,7 @@ const RepairDetailChoice4 = ({
   const [imageFile, setImageFile] = useState("");
   const [img, setImg] = useState("");
   const requestRef = useRef();
+  const [nextButtonPossible, setNextButtonPossible] = useState("");
 
   const saveImgFile = () => {
     const file = imgFile.current.files[0];
@@ -53,7 +54,10 @@ const RepairDetailChoice4 = ({
           <InputTitle>파손 부분 설명 및 요청사항</InputTitle>
           <Input
             placeholder="설명이 자세할 수록 견적이 정확해요"
-            onChange={event => setRequests(event.target.value)}
+            onChange={event => {
+              setRequests(event.target.value);
+              setNextButtonPossible(event.target.value);
+            }}
             maxlength="120"
             ref={requestRef}
             required
@@ -102,7 +106,9 @@ const RepairDetailChoice4 = ({
           </form>
         </ImageInputWrapper>
       </MoblieScroll>
-      <NextBox onClick={NextButton}>다음</NextBox>
+      <NextBox onClick={NextButton} nextButtonPossible={nextButtonPossible}>
+        다음
+      </NextBox>
     </>
   );
 };
@@ -146,8 +152,8 @@ const NextBox = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 18px;
-  background-color: ${({ listClickNumber }) => {
-    return listClickNumber > -1 ? "black" : "#C9C9C9";
+  background-color: ${({ nextButtonPossible }) => {
+    return nextButtonPossible !== "" ? "black" : "#C9C9C9";
   }};
   color: white;
 `;

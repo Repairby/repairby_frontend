@@ -14,7 +14,6 @@ const PhoneModelChoice3 = ({ setProcessCount, setProductInformation }) => {
       await axios
         .get("/phone", { params: { phone_name: value } })
         .then(response => {
-          setProductInformation(value);
           setPhoneModelData(response.data);
         })
         .catch(error => {
@@ -63,6 +62,7 @@ const PhoneModelChoice3 = ({ setProcessCount, setProductInformation }) => {
                 key={index}
                 onClick={() => {
                   setPhoneModelValue(phoneModel.product_information);
+                  setProductInformation(phoneModel.product_information);
                   setSaveInputValue(true);
                   setPhoneModelKey(index);
                 }}

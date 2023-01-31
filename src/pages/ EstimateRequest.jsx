@@ -7,6 +7,7 @@ const EstimageRequest = () => {
   const [menu1, setMenu1] = useState(false);
   const [menu2, setMenu2] = useState(false);
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const menuClick = num => {
     if (num === 1) {
@@ -21,7 +22,11 @@ const EstimageRequest = () => {
 
   const nextButton = () => {
     if (menu1 === true) {
-      navigate("/user_login/");
+      if (token != null) {
+        navigate("/request/");
+      } else {
+        navigate("/user_login/");
+      }
     } else if (menu2 === true) {
       alert("이 서비스는 현재 운영중이 아닙니다");
     } else {

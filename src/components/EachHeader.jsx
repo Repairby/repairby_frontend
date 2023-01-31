@@ -8,12 +8,20 @@ import { GrClose } from "react-icons/gr";
 
 const EachHeader = ({ title, processCount, setProcessCount }) => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const backButton = processCount => {
     if (processCount >= 2) {
       setProcessCount(processCount - 1);
     } else {
-      navigate(-1);
+      if (
+        window.location.href === "http://localhost:3000/request/" &&
+        token != null
+      ) {
+        navigate("/");
+      } else {
+        navigate(-1);
+      }
     }
   };
 

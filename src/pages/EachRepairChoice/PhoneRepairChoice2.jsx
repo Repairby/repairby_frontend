@@ -34,6 +34,15 @@ const PhoneRepairChoicePage2 = ({
   setRepairContents,
 }) => {
   const [ClickNumber19, setClickNumber19] = useState(false);
+
+  const questBoxClick = () => {
+    if (listClickNumber > -1) {
+      return setProcessCount(3);
+    } else {
+      return alert("수리 항목의 내용을 선택해주세요.");
+    }
+  };
+
   return (
     <>
       <MoblieScroll>
@@ -97,7 +106,9 @@ const PhoneRepairChoicePage2 = ({
           ) : null}
         </RepairListWrapper>
       </MoblieScroll>
-      <NextBox listClickNumber={listClickNumber}>다음</NextBox>
+      <NextBox listClickNumber={listClickNumber} onClick={questBoxClick}>
+        다음
+      </NextBox>
     </>
   );
 };

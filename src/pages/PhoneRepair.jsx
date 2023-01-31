@@ -3,8 +3,8 @@ import styled from "styled-components";
 import EachHeader from "../components/EachHeader";
 import MainPhoneRepairChoice from "./EachRepairChoice/MainPhoneRepairChoice";
 import PhoneRepairChoice2 from "./EachRepairChoice/PhoneRepairChoice2";
-import PhoneModelChocie3 from "./EachRepairChoice/ PhoneModelChocie3";
-import RepairDetailChocie4 from "./EachRepairChoice/RepairDetailChocie4";
+import PhoneModelChoice3 from "./EachRepairChoice/ PhoneModelChoice3";
+import RepairDetailChoice4 from "./EachRepairChoice/RepairDetailChoice4";
 import RepairRegionChoice5 from "./EachRepairChoice/RepairRegionChoice5";
 
 const PhoneRepair = () => {
@@ -31,7 +31,7 @@ const PhoneRepair = () => {
   // 5 page 상세주소 변수
   const [addressDetail, setAddressDetail] = useState("");
   // 이미지
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState();
 
   return (
     <MobileWrapper>
@@ -60,12 +60,12 @@ const PhoneRepair = () => {
             setRepairContents={setRepairContents}
           />
         ) : processCount === 3 ? (
-          <PhoneModelChocie3
+          <PhoneModelChoice3
             setProcessCount={setProcessCount}
             setProductInformation={setProductInformation}
           />
         ) : processCount === 4 ? (
-          <RepairDetailChocie4
+          <RepairDetailChoice4
             setProcessCount={setProcessCount}
             setChoice4RepairMethodNumber={setChoice4RepairMethodNumber}
             choice4RepairMethodNumber={choice4RepairMethodNumber}

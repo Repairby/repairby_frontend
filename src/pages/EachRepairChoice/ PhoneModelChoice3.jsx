@@ -5,17 +5,15 @@ import axios from "axios";
 
 const PhoneModelChoice3 = ({ setProcessCount, setProductInformation }) => {
   const [phoneModelData, setPhoneModelData] = useState([]);
-  const [phoneModelValue, setPhoneModelValue] = useState("왜 그러는겨");
+  const [phoneModelValue, setPhoneModelValue] = useState("");
+  const [phoneModelKey, setPhoneModelKey] = useState();
   const [saveInputValue, setSaveInputValue] = useState(false);
 
   const phoneSearch = async value => {
     try {
-      console.log(value);
       await axios
         .get("/phone", { params: { phone_name: value } })
         .then(response => {
-          console.log(response.data);
-          console.log("응답성공");
           setProductInformation(value);
           setPhoneModelData(response.data);
         })
@@ -28,8 +26,6 @@ const PhoneModelChoice3 = ({ setProcessCount, setProductInformation }) => {
     }
   };
 
-  console.log(saveInputValue);
-  console.log(phoneModelValue);
   return (
     <>
       <PercentBar />
@@ -43,7 +39,8 @@ const PhoneModelChoice3 = ({ setProcessCount, setProductInformation }) => {
         <PhoneModelInput
           placeholder="아이폰, 아이패드, 애플워치, 맥북, 에어팟 등"
           onChange={event => phoneSearch(event.target.value)}
-          defaultValue={saveInputValue ? phoneModelValue : null}
+          defaultValue={phoneModelValue ? phoneModelValue : null}
+          key={phoneModelKey}
         />
       </PhoneModelInputWrapper>
 
@@ -54,6 +51,7 @@ const PhoneModelChoice3 = ({ setProcessCount, setProductInformation }) => {
             onClick={() => {
               setPhoneModelValue(phoneModel.product_information);
               setSaveInputValue(true);
+              setPhoneModelKey(index);
             }}
           >
             {phoneModel.product_information}

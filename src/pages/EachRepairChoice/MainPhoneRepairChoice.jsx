@@ -30,9 +30,9 @@ const MainPhoneRepairChoice = ({
 
   const questBoxClick = () => {
     if (ectClick === true || questClick > -1 || clickNumber > -1) {
-      setProcessCount(2);
+      return setProcessCount(2);
     } else {
-      return;
+      return alert("수리 항목을 선택해주세요.");
     }
   };
 

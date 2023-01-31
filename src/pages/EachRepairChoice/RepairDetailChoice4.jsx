@@ -4,7 +4,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 const RepairMethod = ["매장 방문 수리", "택배 수리", "기타"];
 
-const RepairDetailChocie4 = ({
+const RepairDetailChoice4 = ({
   setProcessCount,
   choice4RepairMethodNumber,
   setChoice4RepairMethodNumber,
@@ -107,7 +107,7 @@ const RepairDetailChocie4 = ({
   );
 };
 
-export default RepairDetailChocie4;
+export default RepairDetailChoice4;
 
 const MoblieScroll = styled.div`
   height: 90%;

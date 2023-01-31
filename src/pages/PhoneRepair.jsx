@@ -105,6 +105,7 @@ const MobileContainer = styled.div`
   max-height: auto;
   margin: 0 auto;
   background-color: white;
+  overflow: hidden;
 
   @media all and (max-width: 600px) {
     width: 100%;

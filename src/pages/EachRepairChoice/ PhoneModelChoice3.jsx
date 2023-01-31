@@ -26,6 +26,14 @@ const PhoneModelChoice3 = ({ setProcessCount, setProductInformation }) => {
     }
   };
 
+  const NextButton = () => {
+    if (saveInputValue && phoneModelValue !== null) {
+      setProcessCount(4);
+    } else {
+      alert("모델을 검색해주세요.");
+    }
+  };
+
   return (
     <>
       <PercentBar />
@@ -38,27 +46,35 @@ const PhoneModelChoice3 = ({ setProcessCount, setProductInformation }) => {
         <BsSearch className="search" />
         <PhoneModelInput
           placeholder="아이폰, 아이패드, 애플워치, 맥북, 에어팟 등"
-          onChange={event => phoneSearch(event.target.value)}
+          onChange={event => {
+            phoneSearch(event.target.value);
+            setSaveInputValue(false);
+          }}
           defaultValue={phoneModelValue ? phoneModelValue : null}
           key={phoneModelKey}
         />
       </PhoneModelInputWrapper>
 
-      <MoblieScroll>
-        {phoneModelData.map((phoneModel, index) => (
-          <PhoneModelWrapper
-            key={index}
-            onClick={() => {
-              setPhoneModelValue(phoneModel.product_information);
-              setSaveInputValue(true);
-              setPhoneModelKey(index);
-            }}
-          >
-            {phoneModel.product_information}
-          </PhoneModelWrapper>
-        ))}
-      </MoblieScroll>
-      <NextBox onClick={() => setProcessCount(4)}>다음</NextBox>
+      <MoblieScrollWrapper>
+        <MoblieScroll>
+          {!saveInputValue &&
+            phoneModelData.map((phoneModel, index) => (
+              <PhoneModelWrapper
+                key={index}
+                onClick={() => {
+                  setPhoneModelValue(phoneModel.product_information);
+                  setSaveInputValue(true);
+                  setPhoneModelKey(index);
+                }}
+              >
+                {phoneModel.product_information}
+              </PhoneModelWrapper>
+            ))}
+        </MoblieScroll>
+      </MoblieScrollWrapper>
+      <NextBox onClick={NextButton} saveInputValue={saveInputValue}>
+        다음
+      </NextBox>
     </>
   );
 };
@@ -66,7 +82,7 @@ const PhoneModelChoice3 = ({ setProcessCount, setProductInformation }) => {
 export default PhoneModelChoice3;
 
 const MoblieScroll = styled.div`
-  height: 55%;
+  height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
 `;
@@ -102,8 +118,8 @@ const NextBox = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 18px;
-  background-color: ${({ listClickNumber }) => {
-    return listClickNumber > -1 ? "black" : "#C9C9C9";
+  background-color: ${({ saveInputValue }) => {
+    return saveInputValue ? "black" : "#C9C9C9";
   }};
   color: white;
 `;
@@ -138,4 +154,8 @@ const PhoneModelWrapper = styled.div`
   padding: 13px 0;
   margin: 0 auto;
   cursor: pointer;
+`;
+
+const MoblieScrollWrapper = styled.div`
+  height: 40%;
 `;

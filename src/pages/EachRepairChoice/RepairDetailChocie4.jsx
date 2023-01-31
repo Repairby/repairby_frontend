@@ -15,6 +15,7 @@ const RepairDetailChocie4 = ({
   const imgFile = useRef();
   const [imageFile, setImageFile] = useState("");
   const [img, setImg] = useState("");
+  const requestRef = useRef();
 
   const saveImgFile = () => {
     const file = imgFile.current.files[0];
@@ -27,6 +28,16 @@ const RepairDetailChocie4 = ({
         resolve();
       };
     });
+  };
+
+  const NextButton = () => {
+    const thisRequestValue = requestRef.current.value;
+    if (thisRequestValue !== "") {
+      setProcessCount(5);
+    } else {
+      alert("증상을 알려주세요.");
+      requestRef.current.focus();
+    }
   };
 
   return (
@@ -43,6 +54,9 @@ const RepairDetailChocie4 = ({
           <Input
             placeholder="설명이 자세할 수록 견적이 정확해요"
             onChange={event => setRequests(event.target.value)}
+            maxlength="120"
+            ref={requestRef}
+            required
           />
         </InputWrapper>
         <RepairMethodWrapper>
@@ -88,7 +102,7 @@ const RepairDetailChocie4 = ({
           </form>
         </ImageInputWrapper>
       </MoblieScroll>
-      <NextBox onClick={() => setProcessCount(5)}>다음</NextBox>
+      <NextBox onClick={NextButton}>다음</NextBox>
     </>
   );
 };

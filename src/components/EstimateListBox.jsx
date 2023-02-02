@@ -21,7 +21,11 @@ const EstimateListBox = ({
           <EstimateId>{estimateId}</EstimateId>
           <DetailBox>
             <CompanyIconBox>
-              <FaApple />
+              {company === "APPLE" ? (
+                <FaApple />
+              ) : company === "SAMSUNG" ? (
+                <img src="/images/MyEstimatePage/Samsung.png" alt="삼성 로고" />
+              ) : null}
             </CompanyIconBox>
             <DetailDescription>
               <Company>{company}</Company>
@@ -80,6 +84,10 @@ const CompanyIconBox = styled.div`
   align-items: center;
   font-size: 2rem;
   color: gray;
+
+  img {
+    width: 90px;
+  }
 `;
 
 const DetailDescription = styled.div`

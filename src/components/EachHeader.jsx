@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import { GrClose } from "react-icons/gr";
 
-const EachHeader = ({ title, processCount, setProcessCount }) => {
+const EachHeader = ({ title, processCount, setProcessCount, link }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
@@ -14,11 +14,8 @@ const EachHeader = ({ title, processCount, setProcessCount }) => {
     if (processCount >= 2) {
       setProcessCount(processCount - 1);
     } else {
-      if (
-        window.location.href === "http://localhost:3000/request/" &&
-        token != null
-      ) {
-        navigate("/");
+      if (link != null && token != null) {
+        navigate(link);
       } else {
         navigate(-1);
       }
@@ -32,7 +29,7 @@ const EachHeader = ({ title, processCount, setProcessCount }) => {
         onClick={() => backButton(processCount)}
       />
       {title}
-      <GrClose className="IoClose" />
+      <GrClose className="IoClose" onClick={() => navigate("/")} />
     </HeaderContainer>
   );
 };

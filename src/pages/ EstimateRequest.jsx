@@ -37,7 +37,7 @@ const EstimageRequest = () => {
   return (
     <EstimageRequestWrapper>
       <Container>
-        <EachHeader title="견적 요청" />
+        <EachHeader title="견적 요청" link="/" />
         <PercentBar />
         <Percent>10%</Percent>
         <Question>어떤 서비스가 필요하세요?</Question>

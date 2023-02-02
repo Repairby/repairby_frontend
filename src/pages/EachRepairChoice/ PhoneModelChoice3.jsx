@@ -5,18 +5,15 @@ import axios from "axios";
 
 const PhoneModelChoice3 = ({ setProcessCount, setProductInformation }) => {
   const [phoneModelData, setPhoneModelData] = useState([]);
-  const [phoneModelValue, setPhoneModelValue] = useState("왜 그러는겨");
+  const [phoneModelValue, setPhoneModelValue] = useState("");
+  const [phoneModelKey, setPhoneModelKey] = useState();
   const [saveInputValue, setSaveInputValue] = useState(false);
 
   const phoneSearch = async value => {
     try {
-      console.log(value);
       await axios
         .get("/phone", { params: { phone_name: value } })
         .then(response => {
-          console.log(response.data);
-          console.log("응답성공");
-          setProductInformation(value);
           setPhoneModelData(response.data);
         })
         .catch(error => {
@@ -28,39 +25,54 @@ const PhoneModelChoice3 = ({ setProcessCount, setProductInformation }) => {
     }
   };
 
-  console.log(saveInputValue);
-  console.log(phoneModelValue);
+  const NextButton = () => {
+    if (saveInputValue && phoneModelValue !== null) {
+      setProcessCount(4);
+    } else {
+      alert("모델을 검색해주세요.");
+    }
+  };
+
   return (
     <>
-      <PercentBar />
-      <Percent>70%</Percent>
-      <Question>
-        수리받을 제품
-        <br /> 조회하기
-      </Question>
-      <PhoneModelInputWrapper>
-        <BsSearch className="search" />
-        <PhoneModelInput
-          placeholder="아이폰, 아이패드, 애플워치, 맥북, 에어팟 등"
-          onChange={event => phoneSearch(event.target.value)}
-          defaultValue={saveInputValue ? phoneModelValue : null}
-        />
-      </PhoneModelInputWrapper>
-
       <MoblieScroll>
-        {phoneModelData.map((phoneModel, index) => (
-          <PhoneModelWrapper
-            key={index}
-            onClick={() => {
-              setPhoneModelValue(phoneModel.product_information);
-              setSaveInputValue(true);
+        <PercentBar />
+        <Percent>70%</Percent>
+        <Question>
+          수리받을 제품
+          <br /> 조회하기
+        </Question>
+        <PhoneModelInputWrapper>
+          <BsSearch className="search" />
+          <PhoneModelInput
+            placeholder="아이폰, 아이패드, 애플워치, 맥북, 에어팟 등"
+            onChange={event => {
+              phoneSearch(event.target.value);
+              setSaveInputValue(false);
             }}
-          >
-            {phoneModel.product_information}
-          </PhoneModelWrapper>
-        ))}
+            defaultValue={phoneModelValue ? phoneModelValue : null}
+            key={phoneModelKey}
+          />
+        </PhoneModelInputWrapper>
+
+        {!saveInputValue &&
+          phoneModelData.map((phoneModel, index) => (
+            <PhoneModelWrapper
+              key={index}
+              onClick={() => {
+                setPhoneModelValue(phoneModel.product_information);
+                setProductInformation(phoneModel.product_information);
+                setSaveInputValue(true);
+                setPhoneModelKey(index);
+              }}
+            >
+              {phoneModel.product_information}
+            </PhoneModelWrapper>
+          ))}
       </MoblieScroll>
-      <NextBox onClick={() => setProcessCount(4)}>다음</NextBox>
+      <NextBox onClick={NextButton} saveInputValue={saveInputValue}>
+        다음
+      </NextBox>
     </>
   );
 };
@@ -68,7 +80,7 @@ const PhoneModelChoice3 = ({ setProcessCount, setProductInformation }) => {
 export default PhoneModelChoice3;
 
 const MoblieScroll = styled.div`
-  height: 55%;
+  height: 80%;
   overflow-x: hidden;
   overflow-y: auto;
 `;
@@ -104,8 +116,8 @@ const NextBox = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 18px;
-  background-color: ${({ listClickNumber }) => {
-    return listClickNumber > -1 ? "black" : "#C9C9C9";
+  background-color: ${({ saveInputValue }) => {
+    return saveInputValue ? "black" : "#C9C9C9";
   }};
   color: white;
 `;

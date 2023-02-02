@@ -64,24 +64,6 @@ const MainPhoneRepairChoice = ({
               {quest}
             </QuestBox>
           ))}
-          <EctBox
-            onClick={() => {
-              setEctClick(!ectClick);
-              setQuestClick(-1);
-            }}
-            ectClick={ectClick}
-          >
-            <EctSpan>기타</EctSpan>
-            <Described ectClick={ectClick}>
-              파손 정보를 직접 입력해주세요
-            </Described>
-            <EctInput
-              ectClick={ectClick}
-              onClick={e => {
-                e.stopPropagation();
-              }}
-            />
-          </EctBox>
         </QuestBoxWrapper>
       </MoblieScroll>
       <NextBox
@@ -128,6 +110,7 @@ const Question = styled.div`
 
 const QuestBoxWrapper = styled.div`
   margin: 0 auto;
+  padding-bottom: 50px;
   width: 90%;
   display: flex;
   justify-content: space-around;
@@ -156,52 +139,6 @@ const QuestBox = styled.a`
   font-weight: ${({ id, questClick, clickNumber }) => {
     return id === questClick || id === clickNumber ? "bold" : "normal";
   }};
-`;
-
-const EctBox = styled.div`
-  border: ${({ ectClick }) => {
-    return ectClick === false ? "1px solid #c9c9c9" : "1.5px solid black";
-  }};
-  border-radius: 10px;
-  width: 95%;
-  height: ${({ ectClick }) => {
-    return ectClick === false ? "55px" : "150px";
-  }};
-  margin-bottom: 20px;
-  cursor: pointer;
-  text-align: center;
-  line-height: 20px;
-  margin-bottom: 100px;
-  font-size: 14px;
-  font-weight: ${({ ectClick }) => {
-    return ectClick === false ? "normal" : "bold";
-  }};
-`;
-
-const EctSpan = styled.span`
-  display: block;
-  margin: 20px 0;
-`;
-
-const Described = styled.div`
-  display: ${({ ectClick }) => {
-    return ectClick === false ? "none" : "flex";
-  }};
-  justify-content: center;
-  color: gray;
-  font-size: 13px;
-`;
-
-const EctInput = styled.input`
-  display: ${({ ectClick }) => {
-    return ectClick === false ? "none" : "block";
-  }};
-  margin: 0 auto;
-  margin-top: 22px;
-  width: 85%;
-  border: none;
-  border-bottom: 1px solid black;
-  padding-bottom: 8px;
 `;
 
 const NextBox = styled.div`

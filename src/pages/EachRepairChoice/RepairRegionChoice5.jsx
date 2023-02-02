@@ -14,7 +14,7 @@ const RepairRegionChoice5 = ({
   image,
 }) => {
   let navigate = useNavigate();
-  const [address, setAddress] = useState(""); // 주소
+  const [address, setAddress] = useState(""); // 우편 주소
   const [isOpenPost, setIsOpenPost] = useState(false);
 
   const estimateValue = {
@@ -37,11 +37,6 @@ const RepairRegionChoice5 = ({
     if (data.addressType === "R") {
       if (data.bname !== "") {
         extraAddr += data.bname;
-      }
-
-      if (data.buildingName !== "") {
-        extraAddr +=
-          extraAddr !== "" ? `, ${data.buildingName}` : data.buildingName;
       }
 
       fullAddr += extraAddr !== "" ? ` (${extraAddr})` : "";
@@ -103,7 +98,9 @@ const RepairRegionChoice5 = ({
           <SearchButton onClick={onChangeOpenPost}>주소 검색</SearchButton>
         </InputWrapper>
       </MoblieScroll>
-      <NextBox onClick={NextBoxButton}>다음</NextBox>
+      <NextBox onClick={NextBoxButton} addressDetail={addressDetail}>
+        다음
+      </NextBox>
     </>
   );
 };
@@ -147,8 +144,8 @@ const NextBox = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 18px;
-  background-color: ${({ listClickNumber }) => {
-    return listClickNumber > -1 ? "black" : "#C9C9C9";
+  background-color: ${({ addressDetail }) => {
+    return addressDetail ? "black" : "#C9C9C9";
   }};
   color: white;
 `;

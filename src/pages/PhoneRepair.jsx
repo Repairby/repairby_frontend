@@ -40,6 +40,7 @@ const PhoneRepair = () => {
           title="내 폰 수리하기"
           processCount={processCount}
           setProcessCount={setProcessCount}
+          link="/e_request/"
         />
         {processCount === 1 ? (
           <MainPhoneRepairChoice
@@ -105,6 +106,7 @@ const MobileContainer = styled.div`
   max-height: auto;
   margin: 0 auto;
   background-color: white;
+  overflow: hidden;
 
   @media all and (max-width: 600px) {
     width: 100%;

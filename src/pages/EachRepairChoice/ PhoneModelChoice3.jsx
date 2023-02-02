@@ -35,43 +35,41 @@ const PhoneModelChoice3 = ({ setProcessCount, setProductInformation }) => {
 
   return (
     <>
-      <PercentBar />
-      <Percent>70%</Percent>
-      <Question>
-        수리받을 제품
-        <br /> 조회하기
-      </Question>
-      <PhoneModelInputWrapper>
-        <BsSearch className="search" />
-        <PhoneModelInput
-          placeholder="아이폰, 아이패드, 애플워치, 맥북, 에어팟 등"
-          onChange={event => {
-            phoneSearch(event.target.value);
-            setSaveInputValue(false);
-          }}
-          defaultValue={phoneModelValue ? phoneModelValue : null}
-          key={phoneModelKey}
-        />
-      </PhoneModelInputWrapper>
+      <MoblieScroll>
+        <PercentBar />
+        <Percent>70%</Percent>
+        <Question>
+          수리받을 제품
+          <br /> 조회하기
+        </Question>
+        <PhoneModelInputWrapper>
+          <BsSearch className="search" />
+          <PhoneModelInput
+            placeholder="아이폰, 아이패드, 애플워치, 맥북, 에어팟 등"
+            onChange={event => {
+              phoneSearch(event.target.value);
+              setSaveInputValue(false);
+            }}
+            defaultValue={phoneModelValue ? phoneModelValue : null}
+            key={phoneModelKey}
+          />
+        </PhoneModelInputWrapper>
 
-      <MoblieScrollWrapper>
-        <MoblieScroll>
-          {!saveInputValue &&
-            phoneModelData.map((phoneModel, index) => (
-              <PhoneModelWrapper
-                key={index}
-                onClick={() => {
-                  setPhoneModelValue(phoneModel.product_information);
-                  setProductInformation(phoneModel.product_information);
-                  setSaveInputValue(true);
-                  setPhoneModelKey(index);
-                }}
-              >
-                {phoneModel.product_information}
-              </PhoneModelWrapper>
-            ))}
-        </MoblieScroll>
-      </MoblieScrollWrapper>
+        {!saveInputValue &&
+          phoneModelData.map((phoneModel, index) => (
+            <PhoneModelWrapper
+              key={index}
+              onClick={() => {
+                setPhoneModelValue(phoneModel.product_information);
+                setProductInformation(phoneModel.product_information);
+                setSaveInputValue(true);
+                setPhoneModelKey(index);
+              }}
+            >
+              {phoneModel.product_information}
+            </PhoneModelWrapper>
+          ))}
+      </MoblieScroll>
       <NextBox onClick={NextButton} saveInputValue={saveInputValue}>
         다음
       </NextBox>
@@ -82,7 +80,7 @@ const PhoneModelChoice3 = ({ setProcessCount, setProductInformation }) => {
 export default PhoneModelChoice3;
 
 const MoblieScroll = styled.div`
-  height: 100%;
+  height: 80%;
   overflow-x: hidden;
   overflow-y: auto;
 `;
@@ -154,8 +152,4 @@ const PhoneModelWrapper = styled.div`
   padding: 13px 0;
   margin: 0 auto;
   cursor: pointer;
-`;
-
-const MoblieScrollWrapper = styled.div`
-  height: 40%;
 `;

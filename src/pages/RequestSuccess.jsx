@@ -1,18 +1,54 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import EachHeader from "../components/EachHeader";
 import { Link } from "react-router-dom";
 import { FiCheck } from "react-icons/fi";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 const RequestSuccess = () => {
   const location = useLocation().state;
-  console.log(location);
+
+  useEffect(() => {
+    const estimateInfo = new FormData();
+
+    const estimateData = {
+      requests: location.requests,
+      receipt: location.receipt,
+      address: location.addressDetail,
+      product_information: location.productInformation,
+      repair_contents: location.repairContents,
+    };
+
+    const token = localStorage.getItem("token");
+
+    const blob = new Blob([JSON.stringify(estimateData)], {
+      type: "application/json",
+    });
+    estimateInfo.append("image", location.image);
+    estimateInfo.append("estimate", blob);
+
+    axios
+      .post("/estimate", estimateInfo, {
+        headers: {
+          Authorization: token,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(response => {
+        console.log(response.data);
+        console.log("응답성공");
+      })
+      .catch(error => {
+        console.log(error);
+        throw new Error(error);
+      });
+  }, []);
 
   return (
     <MobileWrapper>
       <MobileContainer>
-        <EachHeader title="내 폰 수리하기" />
+        <EachHeader title="내 폰 수리하기" link="/e_request/" />
         <MoblieScroll>
           <RequestSuccessMessageWrapper>
             <FiCheck className="circleCheck" />
@@ -23,6 +59,7 @@ const RequestSuccess = () => {
               잠시 후 카카오 알림톡으로 견적이 수신됩니다
             </RequestSuccessMessageDescription>
           </RequestSuccessMessageWrapper>
+          <SeprationSpace />
           <RequestDetailWrapper>
             <RequestDetailInfoWrapper>
               <RequestDetailTitle>요청 내용</RequestDetailTitle>
@@ -80,7 +117,7 @@ const MoblieScroll = styled.div`
   height: 90%;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #e9e9e9;
+  background-color: white;
 `;
 
 const NextBox = styled.div`
@@ -188,4 +225,12 @@ const RequestDetailInfoAnswer = styled.div`
   font-size: 15px;
   padding-bottom: 30px;
   font-weight: 500;
+  overflow: hidden;
+  word-break: break-all;
+`;
+
+const SeprationSpace = styled.div`
+  width: 100%;
+  height: 10px;
+  background-color: #e9e9e9;
 `;

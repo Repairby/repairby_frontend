@@ -4,7 +4,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 const RepairMethod = ["매장 방문 수리", "택배 수리", "기타"];
 
-const RepairDetailChocie4 = ({
+const RepairDetailChoice4 = ({
   setProcessCount,
   choice4RepairMethodNumber,
   setChoice4RepairMethodNumber,
@@ -15,6 +15,8 @@ const RepairDetailChocie4 = ({
   const imgFile = useRef();
   const [imageFile, setImageFile] = useState("");
   const [img, setImg] = useState("");
+  const requestRef = useRef();
+  const [nextButtonPossible, setNextButtonPossible] = useState("");
 
   const saveImgFile = () => {
     const file = imgFile.current.files[0];
@@ -27,6 +29,16 @@ const RepairDetailChocie4 = ({
         resolve();
       };
     });
+  };
+
+  const NextButton = () => {
+    const thisRequestValue = requestRef.current.value;
+    if (thisRequestValue !== "") {
+      setProcessCount(5);
+    } else {
+      alert("증상을 알려주세요.");
+      requestRef.current.focus();
+    }
   };
 
   return (
@@ -42,7 +54,13 @@ const RepairDetailChocie4 = ({
           <InputTitle>파손 부분 설명 및 요청사항</InputTitle>
           <Input
             placeholder="설명이 자세할 수록 견적이 정확해요"
-            onChange={event => setRequests(event.target.value)}
+            onChange={event => {
+              setRequests(event.target.value);
+              setNextButtonPossible(event.target.value);
+            }}
+            maxlength="120"
+            ref={requestRef}
+            required
           />
         </InputWrapper>
         <RepairMethodWrapper>
@@ -88,12 +106,14 @@ const RepairDetailChocie4 = ({
           </form>
         </ImageInputWrapper>
       </MoblieScroll>
-      <NextBox onClick={() => setProcessCount(5)}>다음</NextBox>
+      <NextBox onClick={NextButton} nextButtonPossible={nextButtonPossible}>
+        다음
+      </NextBox>
     </>
   );
 };
 
-export default RepairDetailChocie4;
+export default RepairDetailChoice4;
 
 const MoblieScroll = styled.div`
   height: 90%;
@@ -132,8 +152,8 @@ const NextBox = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 18px;
-  background-color: ${({ listClickNumber }) => {
-    return listClickNumber > -1 ? "black" : "#C9C9C9";
+  background-color: ${({ nextButtonPossible }) => {
+    return nextButtonPossible !== "" ? "black" : "#C9C9C9";
   }};
   color: white;
 `;

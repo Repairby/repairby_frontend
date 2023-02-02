@@ -23,8 +23,18 @@ const MainPhoneRepairChoice = ({
   setListClickNumber,
   setUnderListClickNumber19,
 }) => {
+  // 기타 버튼 선택지 boolean
   const [ectClick, setEctClick] = useState(false);
+  // 기타를 제외한 나머지 선택지 number
   const [questClick, setQuestClick] = useState(-1);
+
+  const questBoxClick = () => {
+    if (ectClick === true || questClick > -1 || clickNumber > -1) {
+      return setProcessCount(2);
+    } else {
+      return alert("수리 항목을 선택해주세요.");
+    }
+  };
 
   return (
     <>
@@ -54,30 +64,13 @@ const MainPhoneRepairChoice = ({
               {quest}
             </QuestBox>
           ))}
-          <EctBox
-            onClick={() => {
-              setEctClick(!ectClick);
-              setQuestClick(-1);
-            }}
-            ectClick={ectClick}
-          >
-            <EctSpan>기타</EctSpan>
-            <Described ectClick={ectClick}>
-              파손 정보를 직접 입력해주세요
-            </Described>
-            <EctInput
-              ectClick={ectClick}
-              onClick={e => {
-                e.stopPropagation();
-              }}
-            />
-          </EctBox>
         </QuestBoxWrapper>
       </MoblieScroll>
       <NextBox
         ectClick={ectClick}
         questClick={questClick}
         clickNumber={clickNumber}
+        onClick={questBoxClick}
       >
         다음
       </NextBox>
@@ -117,6 +110,7 @@ const Question = styled.div`
 
 const QuestBoxWrapper = styled.div`
   margin: 0 auto;
+  padding-bottom: 50px;
   width: 90%;
   display: flex;
   justify-content: space-around;
@@ -147,52 +141,6 @@ const QuestBox = styled.a`
   }};
 `;
 
-const EctBox = styled.div`
-  border: ${({ ectClick }) => {
-    return ectClick === false ? "1px solid #c9c9c9" : "1.5px solid black";
-  }};
-  border-radius: 10px;
-  width: 95%;
-  height: ${({ ectClick }) => {
-    return ectClick === false ? "55px" : "150px";
-  }};
-  margin-bottom: 20px;
-  cursor: pointer;
-  text-align: center;
-  line-height: 20px;
-  margin-bottom: 100px;
-  font-size: 14px;
-  font-weight: ${({ ectClick }) => {
-    return ectClick === false ? "normal" : "bold";
-  }};
-`;
-
-const EctSpan = styled.span`
-  display: block;
-  margin: 20px 0;
-`;
-
-const Described = styled.div`
-  display: ${({ ectClick }) => {
-    return ectClick === false ? "none" : "flex";
-  }};
-  justify-content: center;
-  color: gray;
-  font-size: 13px;
-`;
-
-const EctInput = styled.input`
-  display: ${({ ectClick }) => {
-    return ectClick === false ? "none" : "block";
-  }};
-  margin: 0 auto;
-  margin-top: 22px;
-  width: 85%;
-  border: none;
-  border-bottom: 1px solid black;
-  padding-bottom: 8px;
-`;
-
 const NextBox = styled.div`
   position: absolute;
   bottom: 0;
@@ -207,5 +155,6 @@ const NextBox = styled.div`
       ? "black"
       : "#C9C9C9";
   }};
+  cursor: pointer;
   color: white;
 `;

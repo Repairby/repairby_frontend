@@ -23,7 +23,7 @@ const MyEstimatePage = () => {
           console.log("응답성공");
         })
         .catch(error => {
-          console.log(error);
+          console.log("내 견적 조회 에러", error);
           throw new Error(error);
         });
     }

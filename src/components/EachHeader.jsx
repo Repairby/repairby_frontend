@@ -29,7 +29,7 @@ const EachHeader = ({ title, processCount, setProcessCount, link }) => {
         onClick={() => backButton(processCount)}
       />
       {title}
-      <GrClose className="IoClose" />
+      <GrClose className="IoClose" onClick={() => navigate("/")} />
     </HeaderContainer>
   );
 };

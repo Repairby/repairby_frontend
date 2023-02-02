@@ -40,6 +40,7 @@ const PhoneRepair = () => {
           title="내 폰 수리하기"
           processCount={processCount}
           setProcessCount={setProcessCount}
+          link="/e_request/"
         />
         {processCount === 1 ? (
           <MainPhoneRepairChoice

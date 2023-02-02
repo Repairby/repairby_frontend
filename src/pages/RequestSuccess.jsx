@@ -48,7 +48,7 @@ const RequestSuccess = () => {
   return (
     <MobileWrapper>
       <MobileContainer>
-        <EachHeader title="내 폰 수리하기" />
+        <EachHeader title="내 폰 수리하기" link="/e_request/" />
         <MoblieScroll>
           <RequestSuccessMessageWrapper>
             <FiCheck className="circleCheck" />

@@ -247,6 +247,7 @@ const Section3 = styled.div`
   line-height: 2.8rem;
   text-align: center;
   height: 91vh;
+  margin-bottom: 120px;
 
   img {
     display: block;

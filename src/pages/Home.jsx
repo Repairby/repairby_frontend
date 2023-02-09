@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { device } from "../Device";
 import { IoIosMenu } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [menu, setMenu] = useState(false);
@@ -14,7 +15,9 @@ const Home = () => {
           <MenuBox menu={menu}>
             <Menu>회사소개</Menu>
             <Menu>고객센터</Menu>
-            <Menu>내 견적 조회</Menu>
+            <Link to="/MyEstimatePage/">
+              <Menu>내 견적 조회</Menu>
+            </Link>
             <MainMenu href="/e_request/">무료 견적 받기</MainMenu>
           </MenuBox>
           <Menubar

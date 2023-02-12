@@ -65,7 +65,7 @@ const EstimateList = () => {
   const [distanceClick, setDistanceClick] = useState(false);
   const [careerClick, setCareerClick] = useState(false);
   const location = useLocation();
-  const estimateId = location.state.estimateId.estimateId;
+  const estimateId = location.state.estimateId;
   console.log(estimateId);
 
   const MenuClick = num => {

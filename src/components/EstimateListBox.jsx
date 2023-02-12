@@ -14,7 +14,7 @@ const EstimateListBox = ({
     String(createAt).slice(0, 10) + " " + String(createAt).slice(11, 16);
 
   return (
-    <Link to="/estimate/">
+    <Link to="/estimate/" state={estimateId}>
       <EstimateListBoxContainer>
         <CreateAt>{createAtTime}</CreateAt>
         <EstimateBox>

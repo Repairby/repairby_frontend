@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // icons
 import { IoIosArrowBack } from "react-icons/io";
@@ -61,10 +61,12 @@ const CompanyEstimateList = [
 const EstimateList = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState(2);
-  const [hover, setHover] = useState(-1);
   const [recommendationClick, setRecommendationClick] = useState(true);
   const [distanceClick, setDistanceClick] = useState(false);
   const [careerClick, setCareerClick] = useState(false);
+  const location = useLocation();
+  const estimateId = location.state.estimateId.estimateId;
+  console.log(estimateId);
 
   const MenuClick = num => {
     if (num === 1) {

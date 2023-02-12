@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // icons
 import { IoIosArrowBack } from "react-icons/io";
@@ -11,76 +12,130 @@ import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import StarIcon from "@mui/icons-material/Star";
 
-const CompanyEstimateList = [
+const CompanyEstimateList2 = [
   {
-    picture: "https://www.cnphone.co.kr/d_fileinfo/img/220220627112053.jpg",
-    companyName: "춘천 케어샵",
+    imageurlSl: "https://www.cnphone.co.kr/d_fileinfo/img/220220627112053.jpg",
+    name: "춘천 케어샵",
     region: "강원 춘천시",
     rating: "4",
     ratingNumber: "5.0",
     ratingReviewNumber: "6",
     contents:
       "당일수리 2~3시간 소요됩니다 모델, 색상별 재고가 달라서 방문전에 연락주시면 감사합니다",
-    price: "210,000원",
+    initRepaircost: "210,000원",
   },
   {
-    picture: "https://www.cnphone.co.kr/d_fileinfo/img/220220627112053.jpg",
-    companyName: "춘천 케어샵",
+    imageurlSl: "https://www.cnphone.co.kr/d_fileinfo/img/220220627112053.jpg",
+    name: "춘천 케어샵",
     region: "강원 춘천시",
     rating: "4",
     ratingNumber: "5.0",
     ratingReviewNumber: "6",
     contents:
       "당일수리 2~3시간 소요됩니다 모델, 색상별 재고가 달라서 방문전에 연락주시면 감사합니다",
-    price: "210,000원",
+    initRepaircost: "210,000원",
   },
   {
-    picture: "https://www.cnphone.co.kr/d_fileinfo/img/220220627112053.jpg",
-    companyName: "춘천 케어샵",
+    imageurlSl: "https://www.cnphone.co.kr/d_fileinfo/img/220220627112053.jpg",
+    name: "춘천 케어샵",
     region: "강원 춘천시",
     rating: "4",
     ratingNumber: "5.0",
     ratingReviewNumber: "6",
     contents:
       "당일수리 2~3시간 소요됩니다 모델, 색상별 재고가 달라서 방문전에 연락주시면 감사합니다",
-    price: "210,000원",
+    initRepaircost: "210,000원",
   },
   {
-    picture: "https://www.cnphone.co.kr/d_fileinfo/img/220220627112053.jpg",
-    companyName: "춘천 케어샵",
+    imageurlSl: "https://www.cnphone.co.kr/d_fileinfo/img/220220627112053.jpg",
+    name: "춘천 케어샵",
     region: "강원 춘천시",
     rating: "4",
     ratingNumber: "5.0",
     ratingReviewNumber: "6",
     contents:
       "당일수리 2~3시간 소요됩니다 모델, 색상별 재고가 달라서 방문전에 연락주시면 감사합니다",
-    price: "210,000원",
+    initRepaircost: "210,000원",
   },
 ];
 
 const EstimateList = () => {
   const navigate = useNavigate();
-  const [value, setValue] = useState(2);
+  const [value, setValue] = useState(2.5);
   const [recommendationClick, setRecommendationClick] = useState(true);
   const [distanceClick, setDistanceClick] = useState(false);
   const [careerClick, setCareerClick] = useState(false);
+  const [startcareer, setStartcareer] = useState([]);
+  const [distance, setDistance] = useState([]);
+  const [companyEstimateList, setCompanyEstimateList] =
+    useState(CompanyEstimateList2);
   const location = useLocation();
   const estimateId = location.state.estimateId;
-  console.log(estimateId);
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    // async function fetchAndSetEstimateData() {
+    //   axios
+    //     .get("/member/estimates", { headers: { Authorization: token } })
+    //     .then(response => {
+    //       console.log(response.data);
+    //       setEstimateData(response.data);
+    //       console.log("응답성공");
+    //     })
+    //     .catch(error => {
+    //       console.log("내 견적 조회 에러", error);
+    //       throw new Error(error);
+    //     });
+    // } 추천만 일단
+    axios
+      .get(
+        "/specialist/startcareer",
+        { params: { id: estimateId } },
+        { headers: { Authorization: token } }
+      )
+      .then(response => {
+        console.log(response.data);
+        setStartcareer(response.data);
+        console.log("응답성공");
+      })
+      .catch(error => {
+        console.log("내 견적 조회 에러", error);
+        throw new Error(error);
+      });
+    axios
+      .get(
+        "/specialist/distance",
+        { params: { id: estimateId } },
+        { headers: { Authorization: token } }
+      )
+      .then(response => {
+        console.log(response.data);
+        setDistance(response.data);
+        console.log("응답성공");
+      })
+      .catch(error => {
+        console.log("내 견적 조회 에러", error);
+        throw new Error(error);
+      });
+    // fetchAndSetEstimateData();
+  }, []);
 
   const MenuClick = num => {
     if (num === 1) {
       setRecommendationClick(true);
       setDistanceClick(false);
       setCareerClick(false);
+      setCompanyEstimateList(CompanyEstimateList2);
     } else if (num === 2) {
       setRecommendationClick(false);
       setDistanceClick(true);
       setCareerClick(false);
+      setCompanyEstimateList(distance);
     } else if (num === 3) {
       setRecommendationClick(false);
       setDistanceClick(false);
       setCareerClick(true);
+      setCompanyEstimateList(startcareer);
     } else {
     }
   };
@@ -114,13 +169,13 @@ const EstimateList = () => {
               경력순
             </CareerOrder>
           </Menu>
-          {CompanyEstimateList.map((props, index) => (
+          {companyEstimateList.map((props, index) => (
             <EstimateBoxWrapper key={index}>
               <EstimateBox>
                 <TopTitleBox>
-                  <img src={props.picture} alt="견적리스트 사진" />
+                  <img src={props.imageurlSl} alt="견적리스트 사진" />
                   <TopDetailWrapper>
-                    <Title>{props.companyName}</Title>
+                    <Title>{props.name}</Title>
                     <Ragion>{props.region}</Ragion>
                     <RatingBox
                       sx={{
@@ -153,7 +208,7 @@ const EstimateList = () => {
                 <Contents>{props.contents}</Contents>
                 <hr />
                 <Price>
-                  예상 견적 <span>{props.price}</span>
+                  예상 견적 <span>{props.initRepaircost}</span>
                 </Price>
               </EstimateBox>
             </EstimateBoxWrapper>

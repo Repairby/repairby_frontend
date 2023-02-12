@@ -129,15 +129,10 @@ const EstimateList = () => {
                     >
                       <Rating
                         size="small"
-                        name="hover-feedback"
+                        name="half-rating-read"
                         value={value}
                         precision={0.5}
-                        onChange={(event, newValue) => {
-                          setValue(newValue);
-                        }}
-                        onChangeActive={(event, newHover) => {
-                          setHover(newHover);
-                        }}
+                        readOnly
                         emptyIcon={
                           <StarIcon
                             size="small"

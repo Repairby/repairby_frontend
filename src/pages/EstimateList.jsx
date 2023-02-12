@@ -132,9 +132,6 @@ const EstimateList = () => {
                         name="half-rating-read"
                         value={value}
                         precision={0.5}
-                        onChange={(event, newValue) => {
-                          setValue(newValue);
-                        }}
                         readOnly
                         emptyIcon={
                           <StarIcon

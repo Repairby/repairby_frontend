@@ -11,6 +11,7 @@ const MyEstimatePage = () => {
   const [fixMenuButtonClick, setFixMenuButtonClick] = useState(true);
   const [saleMenuButtonClick, setSaleFixMenuButtonClick] = useState(false);
   const [estimateData, setEstimateData] = useState([]);
+  const [todayEstimateData, setTodayEstimateData] = useState([]);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -27,7 +28,21 @@ const MyEstimatePage = () => {
           throw new Error(error);
         });
     }
+    async function fetchAndSetTodayEstimateData() {
+      axios
+        .get("/today/estimates", { headers: { Authorization: token } })
+        .then(response => {
+          console.log(response.data);
+          setTodayEstimateData(response.data);
+          console.log("응답성공");
+        })
+        .catch(error => {
+          console.log("오늘 추가된 견적서 개수 오류", error);
+          throw new Error(error);
+        });
+    }
     fetchAndSetEstimateData();
+    fetchAndSetTodayEstimateData();
   }, []);
 
   return (
@@ -44,7 +59,7 @@ const MyEstimatePage = () => {
           </EstimateHeader>
           <EstimateAddDetail>
             <GoBell className="BellIcon" />
-            오늘 새로운 견적이 <span>0개</span> 추가되었어요!
+            오늘 새로운 견적이 <span>{todayEstimateData}</span>개 추가되었어요!
           </EstimateAddDetail>
         </EstimateHeaderWrapper>
         <EstimateMenu>
@@ -79,6 +94,7 @@ const MyEstimatePage = () => {
                 phoneModel={props.product_information}
                 breakdownDetail={props.repair_contents}
                 company={props.manufacturer}
+                specialistNumber={props.specialistNumber}
               />
             ))}
           </EstimateListWrapper>
@@ -146,6 +162,7 @@ const EstimateAddDetail = styled.div`
 
   span {
     font-weight: bold;
+    font-size: 1.2rem;
   }
 
   .BellIcon {

@@ -9,12 +9,13 @@ const EstimateListBox = ({
   phoneModel,
   breakdownDetail,
   company,
+  specialistNumber,
 }) => {
   const createAtTime =
     String(createAt).slice(0, 10) + " " + String(createAt).slice(11, 16);
 
   return (
-    <Link to="/estimate/">
+    <Link to="/estimate/" state={{ estimateId }}>
       <EstimateListBoxContainer>
         <CreateAt>{createAtTime}</CreateAt>
         <EstimateBox>
@@ -22,9 +23,13 @@ const EstimateListBox = ({
           <DetailBox>
             <CompanyIconBox>
               {company === "APPLE" ? (
-                <FaApple />
+                <FaApple loading="lazy" />
               ) : company === "SAMSUNG" ? (
-                <img src="/images/MyEstimatePage/Samsung.png" alt="삼성 로고" />
+                <img
+                  src="/images/MyEstimatePage/Samsung.png"
+                  alt="삼성 로고"
+                  loading="lazy"
+                />
               ) : null}
             </CompanyIconBox>
             <DetailDescription>
@@ -33,7 +38,9 @@ const EstimateListBox = ({
               <BreakdownDetail>{breakdownDetail}</BreakdownDetail>
             </DetailDescription>
           </DetailBox>
-          <CompareEstimateCaseNumber>0건 비교견적 중</CompareEstimateCaseNumber>
+          <CompareEstimateCaseNumber>
+            {specialistNumber}건 비교견적 중
+          </CompareEstimateCaseNumber>
         </EstimateBox>
       </EstimateListBoxContainer>
     </Link>

@@ -37,7 +37,7 @@ const MyEstimatePage = () => {
           console.log("응답성공");
         })
         .catch(error => {
-          console.log("내 견적 조회 에러", error);
+          console.log("오늘 추가된 견적서 개수 오류", error);
           throw new Error(error);
         });
     }
@@ -94,6 +94,7 @@ const MyEstimatePage = () => {
                 phoneModel={props.product_information}
                 breakdownDetail={props.repair_contents}
                 company={props.manufacturer}
+                specialistNumber={props.specialistNumber}
               />
             ))}
           </EstimateListWrapper>

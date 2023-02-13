@@ -61,32 +61,37 @@ const CompanyEstimateList2 = [
 
 const EstimateList = () => {
   const navigate = useNavigate();
-  const [value, setValue] = useState(2.5);
   const [recommendationClick, setRecommendationClick] = useState(true);
   const [distanceClick, setDistanceClick] = useState(false);
   const [careerClick, setCareerClick] = useState(false);
+  const [like, setLike] = useState([]);
   const [startcareer, setStartcareer] = useState([]);
   const [distance, setDistance] = useState([]);
-  const [companyEstimateList, setCompanyEstimateList] =
-    useState(CompanyEstimateList2);
+  const [companyEstimateList, setCompanyEstimateList] = useState([]);
   const location = useLocation();
   const estimateId = location.state.estimateId;
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    // async function fetchAndSetEstimateData() {
-    //   axios
-    //     .get("/member/estimates", { headers: { Authorization: token } })
-    //     .then(response => {
-    //       console.log(response.data);
-    //       setEstimateData(response.data);
-    //       console.log("응답성공");
-    //     })
-    //     .catch(error => {
-    //       console.log("내 견적 조회 에러", error);
-    //       throw new Error(error);
-    //     });
-    // } 추천만 일단
+    async function fetchAndSetEstimateData() {
+      axios
+        .get(
+          "/specialist/like",
+          { params: { id: estimateId } },
+          { headers: { Authorization: token } }
+        )
+        .then(response => {
+          console.log(response.data);
+          setLike(response.data);
+          setCompanyEstimateList(response.data);
+          console.log("응답성공");
+        })
+        .catch(error => {
+          console.log("추천순 조회 에러", error);
+          throw new Error(error);
+        });
+    }
+    fetchAndSetEstimateData();
     axios
       .get(
         "/specialist/startcareer",
@@ -99,7 +104,7 @@ const EstimateList = () => {
         console.log("응답성공");
       })
       .catch(error => {
-        console.log("내 견적 조회 에러", error);
+        console.log("경력순 조회 에러", error);
         throw new Error(error);
       });
     axios
@@ -114,10 +119,9 @@ const EstimateList = () => {
         console.log("응답성공");
       })
       .catch(error => {
-        console.log("내 견적 조회 에러", error);
+        console.log("거리순 조회 에러", error);
         throw new Error(error);
       });
-    // fetchAndSetEstimateData();
   }, []);
 
   const MenuClick = num => {
@@ -125,7 +129,7 @@ const EstimateList = () => {
       setRecommendationClick(true);
       setDistanceClick(false);
       setCareerClick(false);
-      setCompanyEstimateList(CompanyEstimateList2);
+      setCompanyEstimateList(like);
     } else if (num === 2) {
       setRecommendationClick(false);
       setDistanceClick(true);
@@ -187,7 +191,7 @@ const EstimateList = () => {
                       <Rating
                         size="small"
                         name="half-rating-read"
-                        value={value}
+                        value={Number(props.rating)}
                         precision={0.5}
                         readOnly
                         emptyIcon={
@@ -198,7 +202,7 @@ const EstimateList = () => {
                           />
                         }
                       />
-                      <RatingNumber>{props.ratingNumber}</RatingNumber>
+                      <RatingNumber>{props.rating}</RatingNumber>
                       <RatingReviewNumber>
                         ({props.ratingReviewNumber})
                       </RatingReviewNumber>

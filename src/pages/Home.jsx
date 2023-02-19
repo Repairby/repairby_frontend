@@ -18,7 +18,9 @@ const Home = () => {
             <Link to="/MyEstimatePage/">
               <Menu>내 견적 조회</Menu>
             </Link>
-            <MainMenu href="/e_request/">무료 견적 받기</MainMenu>
+            <Link to="/e_request/">
+              <MainMenu>무료 견적 받기</MainMenu>
+            </Link>
           </MenuBox>
           <Menubar
             onClick={() => {
@@ -126,7 +128,7 @@ const MenuBox = styled.div`
   }
 `;
 
-const Menu = styled.a`
+const Menu = styled.div`
   font-size: 16px;
   margin-right: 30px;
   cursor: pointer;
@@ -146,7 +148,7 @@ const Menu = styled.a`
   }
 `;
 
-const MainMenu = styled.a`
+const MainMenu = styled.div`
   font-size: 16px;
   border: 1px solid black;
   padding: 13px;

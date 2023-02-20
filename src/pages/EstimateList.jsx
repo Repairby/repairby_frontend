@@ -12,53 +12,6 @@ import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import StarIcon from "@mui/icons-material/Star";
 
-const CompanyEstimateList2 = [
-  {
-    imageurlSl: "https://www.cnphone.co.kr/d_fileinfo/img/220220627112053.jpg",
-    name: "춘천 케어샵",
-    region: "강원 춘천시",
-    rating: "4",
-    ratingNumber: "5.0",
-    ratingReviewNumber: "6",
-    contents:
-      "당일수리 2~3시간 소요됩니다 모델, 색상별 재고가 달라서 방문전에 연락주시면 감사합니다",
-    initRepaircost: "210,000원",
-  },
-  {
-    imageurlSl: "https://www.cnphone.co.kr/d_fileinfo/img/220220627112053.jpg",
-    name: "춘천 케어샵",
-    region: "강원 춘천시",
-    rating: "4",
-    ratingNumber: "5.0",
-    ratingReviewNumber: "6",
-    contents:
-      "당일수리 2~3시간 소요됩니다 모델, 색상별 재고가 달라서 방문전에 연락주시면 감사합니다",
-    initRepaircost: "210,000원",
-  },
-  {
-    imageurlSl: "https://www.cnphone.co.kr/d_fileinfo/img/220220627112053.jpg",
-    name: "춘천 케어샵",
-    region: "강원 춘천시",
-    rating: "4",
-    ratingNumber: "5.0",
-    ratingReviewNumber: "6",
-    contents:
-      "당일수리 2~3시간 소요됩니다 모델, 색상별 재고가 달라서 방문전에 연락주시면 감사합니다",
-    initRepaircost: "210,000원",
-  },
-  {
-    imageurlSl: "https://www.cnphone.co.kr/d_fileinfo/img/220220627112053.jpg",
-    name: "춘천 케어샵",
-    region: "강원 춘천시",
-    rating: "4",
-    ratingNumber: "5.0",
-    ratingReviewNumber: "6",
-    contents:
-      "당일수리 2~3시간 소요됩니다 모델, 색상별 재고가 달라서 방문전에 연락주시면 감사합니다",
-    initRepaircost: "210,000원",
-  },
-];
-
 const EstimateList = () => {
   const navigate = useNavigate();
   const [recommendationClick, setRecommendationClick] = useState(true);

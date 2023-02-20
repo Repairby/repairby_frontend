@@ -1,62 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { FaComment } from "react-icons/fa";
-import { LOGIN_ESTIMATE_BOX_LIST } from "../../constants/estimate";
-import MobileLayout from "../../components/layouts/MobileLayout";
 
-// kakao login key
-// const REST_API_KEY = "2e1887af2cd18d04ddb8fcf700547c24";
-// const REDIRECT_URI = "http://localhost:3000/kakao-login";
-// const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
-const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REST_API_KEY}&redirect_uri=${URL.kakao_redirect}&response_type=code`;
-
-// const KAKAO_AUTH_URL = new URL("https://kauth.kakao.com/oauth/authorize");
-
-const Login = () => {
+const MobileLayout = ({ children, title }) => {
   return (
-    <MobileLayout
-      title={
-        <div>
-          휴대폰 비교견적!
-          <br />
-          Repairby에서
-          <br />
-          쉽고 빠르게
-        </div>
-      }
-    >
-      {LOGIN_ESTIMATE_BOX_LIST.map((item, index) => (
-        <EstimateBoxWrapper key={item.title} index={index}>
-          <EstimateBox>
-            <DetailBox>
-              <UserIconBox>
-                <LoginUserImg
-                  src={`/images/Login/LoginImage${index + 1}.png`}
-                  alt="loginImg"
-                  index={index}
-                />
-              </UserIconBox>
-              <DetailDescription>
-                <DetailTitle>{item.title}</DetailTitle>
-                <EstimatePrice>{item.price}</EstimatePrice>
-              </DetailDescription>
-            </DetailBox>
-          </EstimateBox>
-        </EstimateBoxWrapper>
-      ))}
-      <LoginDescription>
-        견적 요청 및 내용 확인을 위해 사용자 인증이 필요합니다.
-      </LoginDescription>
-      <KakaoLoginButton href={KAKAO_AUTH_URL}>
-        <FaComment />
-        <span>카카오 로그인</span>
-      </KakaoLoginButton>
-    </MobileLayout>
+    <MobileWrapper>
+      <MobileContainer>
+        {title && <MainTitle>{title}</MainTitle>}
+        {children}
+      </MobileContainer>
+    </MobileWrapper>
   );
 };
 
-export default Login;
+export default MobileLayout;
 
 const MobileWrapper = styled.div`
   background-color: white;

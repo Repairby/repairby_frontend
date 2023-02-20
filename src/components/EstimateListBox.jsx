@@ -2,44 +2,38 @@ import React from "react";
 import styled from "styled-components";
 import { FaApple } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { URL } from "../constants/router";
+import { COMPANY } from "../constants/estimate";
+import { getCreateAtTime } from "../util/time";
 
-const EstimateListBox = ({
-  createAt,
-  estimateId,
-  phoneModel,
-  breakdownDetail,
-  company,
-  specialistNumber,
-}) => {
-  const createAtTime =
-    String(createAt).slice(0, 10) + " " + String(createAt).slice(11, 16);
+const EstimateListBox = ({ data }) => {
+  const date = getCreateAtTime(data.createAt);
 
   return (
-    <Link to="/estimate/" state={{ estimateId }}>
+    <Link to={URL.estimate} state={data.estimateId}>
       <EstimateListBoxContainer>
-        <CreateAt>{createAtTime}</CreateAt>
+        <CreateAt>{data.createAtTime}</CreateAt>
         <EstimateBox>
-          <EstimateId>{estimateId}</EstimateId>
+          <EstimateId>{data.estimateId}</EstimateId>
           <DetailBox>
             <CompanyIconBox>
-              {company === "APPLE" ? (
-                <FaApple loading="lazy" />
-              ) : company === "SAMSUNG" ? (
+              {data.company === COMPANY.apple && <FaApple loading="lazy" />}
+              {data.company === COMPANY.samsung && (
                 <img
                   src="/images/MyEstimatePage/Samsung.png"
                   alt="삼성 로고"
                   loading="lazy"
                 />
-              ) : null}
+              )}
             </CompanyIconBox>
             <DetailDescription>
-              <Company>{company}</Company>
-              <PhoneModel>{phoneModel}</PhoneModel>
-              <BreakdownDetail>{breakdownDetail}</BreakdownDetail>
+              <Company>{data.company}</Company>
+              <PhoneModel>{data.phoneModel}</PhoneModel>
+              <BreakdownDetail>{data.breakdownDetail}</BreakdownDetail>
             </DetailDescription>
           </DetailBox>
           <CompareEstimateCaseNumber>
-            {specialistNumber}건 비교견적 중
+            {data.specialistNumber}건 비교견적 중
           </CompareEstimateCaseNumber>
         </EstimateBox>
       </EstimateListBoxContainer>

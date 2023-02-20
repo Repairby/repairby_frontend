@@ -1,55 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import useEstimate from "../hooks/useEstimate";
+import EstimateListBox from "../components/EstimateListBox";
 import { AiFillHome } from "react-icons/ai";
 import { GoBell } from "react-icons/go";
 import { VscCircleFilled } from "react-icons/vsc";
-import EstimateListBox from "../components/EstimateListBox";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { URL } from "../constants/router";
 
 const MyEstimatePage = () => {
-  const [fixMenuButtonClick, setFixMenuButtonClick] = useState(true);
-  const [saleMenuButtonClick, setSaleFixMenuButtonClick] = useState(false);
-  const [estimateData, setEstimateData] = useState([]);
-  const [todayEstimateData, setTodayEstimateData] = useState([]);
-  const token = localStorage.getItem("token");
+  const [clickedMenu, setClickedMenu] = useState("fix");
+  const { estimateData, isLoading, isError } = useEstimate();
 
-  useEffect(() => {
-    async function fetchAndSetEstimateData() {
-      axios
-        .get("/member/estimates", { headers: { Authorization: token } })
-        .then(response => {
-          console.log(response.data);
-          setEstimateData(response.data);
-          console.log("응답성공");
-        })
-        .catch(error => {
-          console.log("내 견적 조회 에러", error);
-          throw new Error(error);
-        });
-    }
-    async function fetchAndSetTodayEstimateData() {
-      axios
-        .get("/today/estimates", { headers: { Authorization: token } })
-        .then(response => {
-          console.log(response.data);
-          setTodayEstimateData(response.data);
-          console.log("응답성공");
-        })
-        .catch(error => {
-          console.log("오늘 추가된 견적서 개수 오류", error);
-          throw new Error(error);
-        });
-    }
-    fetchAndSetEstimateData();
-    fetchAndSetTodayEstimateData();
-  }, []);
+  const onClickMenu = clickedMenu => {
+    setClickedMenu(clickedMenu);
+  };
 
   return (
+    //FIX: LAYOUT 적용
     <MobileWrapper>
       <MobileContainer>
         <EstimateHeaderWrapper>
-          <Link to="/">
+          <Link to={URL.home}>
             <HomeIcon />
           </Link>
           <EstimateHeader>
@@ -59,46 +31,29 @@ const MyEstimatePage = () => {
           </EstimateHeader>
           <EstimateAddDetail>
             <GoBell className="BellIcon" />
-            오늘 새로운 견적이 <span>{todayEstimateData}</span>개 추가되었어요!
+            오늘 새로운 견적이 <span>{estimateData.today}</span>개 추가되었어요!
           </EstimateAddDetail>
         </EstimateHeaderWrapper>
         <EstimateMenu>
-          <FixMenu
-            onClick={() => {
-              setFixMenuButtonClick(true);
-              setSaleFixMenuButtonClick(false);
-            }}
-            fixMenuButtonClick={fixMenuButtonClick}
-          >
+          <FixMenu onClick={() => onClickMenu("fix")} clickedMenu={clickedMenu}>
             수리
             <VscCircleFilled className="circleIcon" />
           </FixMenu>
           <SaleMenu
-            onClick={() => {
-              setFixMenuButtonClick(false);
-              setSaleFixMenuButtonClick(true);
-            }}
-            saleMenuButtonClick={saleMenuButtonClick}
+            onClick={() => onClickMenu("sale")}
+            clickedMenu={clickedMenu}
           >
             판매
             <VscCircleFilled className="circleIcon" />
           </SaleMenu>
         </EstimateMenu>
-        {fixMenuButtonClick === true && saleMenuButtonClick === false ? (
+        {clickedMenu === "fix" && (
           <EstimateListWrapper>
-            {estimateData.map((props, index) => (
-              <EstimateListBox
-                key={index}
-                createAt={props.created_at}
-                estimateId={props.estimate_id}
-                phoneModel={props.product_information}
-                breakdownDetail={props.repair_contents}
-                company={props.manufacturer}
-                specialistNumber={props.specialistNumber}
-              />
+            {estimateData.member.map((data, index) => (
+              <EstimateListBox key={index} data={data} />
             ))}
           </EstimateListWrapper>
-        ) : null}
+        )}
       </MobileContainer>
     </MobileWrapper>
   );
@@ -186,8 +141,8 @@ const FixMenu = styled.div`
   font-weight: bold;
   padding-left: 5%;
   cursor: pointer;
-  color: ${({ fixMenuButtonClick }) => {
-    return fixMenuButtonClick === true ? "black" : "#c9c9c9";
+  color: ${({ clickedMenu }) => {
+    return clickedMenu === "sale" ? "black" : "#c9c9c9";
   }};
 
   .circleIcon {

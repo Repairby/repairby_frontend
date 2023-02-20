@@ -4,30 +4,23 @@ import EachHeader from "../components/EachHeader";
 import { useNavigate } from "react-router-dom";
 
 const EstimageRequest = () => {
-  const [menu1, setMenu1] = useState(false);
-  const [menu2, setMenu2] = useState(false);
+  const [clickedMenu, setClickedMenu] = useState("");
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
-  const menuClick = num => {
-    if (num === 1) {
-      setMenu1(true);
-      setMenu2(false);
-    } else if (num === 2) {
-      setMenu1(false);
-      setMenu2(true);
-    } else {
-    }
+  const onClickMenu = type => {
+    if (type === "undefined") return alert("운영중인 서비스가 아닙니다");
+    setClickedMenu(type);
   };
 
-  const nextButton = () => {
-    if (menu1 === true) {
-      if (token != null) {
-        navigate("/request/");
-      } else {
-        navigate("/user_login/");
+  const onClickNext = () => {
+    //FIX:if 중첩 제거
+    if (clickedMenu === "내기기수리" && token === null) {
+      if (token === null) {
+        return navigate("/user_login/");
       }
-    } else if (menu2 === true) {
+      navigate("/request/");
+    } else if (clickedMenu === "시세조회") {
       alert("이 서비스는 현재 운영중이 아닙니다");
     } else {
       alert("서비스를 선택하세요");
@@ -42,9 +35,12 @@ const EstimageRequest = () => {
         <Percent>10%</Percent>
         <Question>어떤 서비스가 필요하세요?</Question>
         <AnswerBoxWrapper>
-          <AnswerBox1 menu1={menu1} onClick={() => menuClick(1)}>
+          <AnswerBox1
+            clickedMenu={clickedMenu}
+            onClick={() => onClickMenu("내기기수리")}
+          >
             🛠 &nbsp; 내 기기 수리하기
-            <Described1 menu1={menu1}>
+            <Described1 clickedMenu={clickedMenu}>
               Repairby 파트너스 수리점들로부터 수리 가격비교를
               <br />
               최대 7개까지 받아보세요.
@@ -53,9 +49,12 @@ const EstimageRequest = () => {
               Repairby를 통해 수리 예약을 해 주세요.
             </Described1>
           </AnswerBox1>
-          <AnswerBox2 menu2={menu2} onClick={() => menuClick(2)}>
+          <AnswerBox2
+            clickedMenu={clickedMenu}
+            onClick={() => onClickMenu("시세조회")}
+          >
             💰 &nbsp; 내 기기 시세 조회
-            <Described2 menu2={menu2}>
+            <Described2 clickedMenu={clickedMenu}>
               내 기기 예상 매입가 7개를
               <br />
               실시간으로 받아보세요.
@@ -64,14 +63,14 @@ const EstimageRequest = () => {
               Repairby를 통해 판매할 수도 있어요.
             </Described2>
           </AnswerBox2>
-          <AnswerBox onClick={() => alert("운영중인 서비스가 아닙니다")}>
+          <AnswerBox onClick={() => onClickMenu("undefined")}>
             📱 &nbsp; 리퍼기기 구매하기
           </AnswerBox>
-          <AnswerBox onClick={() => alert("운영중인 서비스가 아닙니다")}>
+          <AnswerBox onClick={() => onClickMenu("undefined")}>
             💻 &nbsp; 리퍼기기 렌탈하기
           </AnswerBox>
         </AnswerBoxWrapper>
-        <AgreeBox onClick={nextButton}>동의하고 진행하기</AgreeBox>
+        <AgreeBox onClick={onClickNext}>동의하고 진행하기</AgreeBox>
       </Container>
     </EstimageRequestWrapper>
   );
@@ -135,8 +134,9 @@ const AnswerBox = styled.div`
 `;
 
 const AnswerBox1 = styled.div`
-  border: ${({ menu1 }) => {
-    return menu1 === false ? "1px solid #b2b2b2" : "2px solid black";
+  //FIX: clickedMenu 로변경!
+  border: ${({ clickedMenu }) => {
+    return clickedMenu === "시세조회" ? "1px solid #b2b2b2" : "2px solid black";
   }};
   border-radius: 8px;
   font-size: 19px;
@@ -146,6 +146,7 @@ const AnswerBox1 = styled.div`
   align-items: center;
   flex-direction: column;
   width: 90%;
+  //FIX: clickedMenu 로변경!
   height: ${({ menu1 }) => {
     return menu1 === false ? "73px" : "165px";
   }};
@@ -154,6 +155,7 @@ const AnswerBox1 = styled.div`
 `;
 
 const AnswerBox2 = styled.div`
+  //FIX: clickedMenu 로변경!
   border: ${({ menu2 }) => {
     return menu2 === false ? "1px solid #b2b2b2" : "2px solid black";
   }};
@@ -173,6 +175,7 @@ const AnswerBox2 = styled.div`
 `;
 
 const Described1 = styled.div`
+  //FIX: clickedMenu 로변경!
   display: ${({ menu1 }) => {
     return menu1 === false ? "none" : "flex";
   }};
@@ -184,6 +187,7 @@ const Described1 = styled.div`
 `;
 
 const Described2 = styled.div`
+  //FIX: clickedMenu 로변경!
   display: ${({ menu2 }) => {
     return menu2 === false ? "none" : "flex";
   }};

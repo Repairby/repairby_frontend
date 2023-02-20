@@ -1,77 +1,29 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { device } from "../Device";
+import React from "react";
 import { IoIosMenu } from "react-icons/io";
-import { Link } from "react-router-dom";
-import { URL } from "../constants/router";
+import styled from "styled-components";
 
-const Home = () => {
-  const [menu, setMenu] = useState(false);
-
-  const onClickMenu = () => {
-    setMenu(!menu);
-  };
-
+const Header = () => {
   return (
-    <HomePageWrapper>
-      <HomePageHeaderWrapper>
-        <HomePageHeader>
-          <img src="/images/Nav/Logo.png" alt="Logo" />
-          <MenuBox menu={menu}>
-            <Menu>회사소개</Menu>
-            <Menu>고객센터</Menu>
-            <Menu to={URL.estimate_me}>내 견적 조회</Menu>
-            <MainMenu to={URL.estimate_request}>무료 견적 받기</MainMenu>
-          </MenuBox>
-          <Menubar onClick={onClickMenu}>
-            <IoIosMenu className="IoMenu" />
-          </Menubar>
-        </HomePageHeader>
-      </HomePageHeaderWrapper>
-      <HomepageBody>
-        <Section1>
-          <Section1Title>
-            당신 근처의
-            <br />
-            수리가격
-            <br />
-            <br />
-            빠르게,
-            <br />
-            Repairby에서
-            <br />
-            비교견적받아보세요
-          </Section1Title>
-          <img src="/images/Homepage/mainGraphImage.png" alt="Logo" />
-        </Section1>
-        <Section2>
-          <img src="/images/Homepage/RepairChoiceImage.png" alt="Logo" />
-          <Section2Title>
-            간.단.하.게
-            <br />
-            불편한
-            <br />
-            부분을
-            <br />
-            선택하세요
-          </Section2Title>
-        </Section2>
-        <Section3>
-          <Section3Title>
-            빠르게
-            <br />
-            합리적인 가격으로
-            <br />
-            수리한번 해볼까요?
-          </Section3Title>
-          <img src="/images/Homepage/RepairSuccessImage.png" alt="Logo" />
-        </Section3>
-      </HomepageBody>
-    </HomePageWrapper>
+    <HomePageHeader>
+      <img src="/images/Nav/Logo.png" alt="Logo" />
+      <MenuBox menu={menu}>
+        <Menu>회사소개</Menu>
+        <Menu>고객센터</Menu>
+        <Menu to="/MyEstimatePage/">내 견적 조회</Menu>
+        <MainMenu to="/e_request/">무료 견적 받기</MainMenu>
+      </MenuBox>
+      <Menubar
+        onClick={() => {
+          //   setMenu(!menu);
+        }}
+      >
+        <IoIosMenu className="IoMenu" />
+      </Menubar>
+    </HomePageHeader>
   );
 };
 
-export default Home;
+export default Header;
 
 const HomePageWrapper = styled.div``;
 
@@ -86,7 +38,7 @@ const HomePageHeaderWrapper = styled.div`
   padding: 10px 0;
 `;
 
-const HomePageHeader = styled.div`
+const HomePageHeader = styled.header`
   display: flex;
   justify-content: space-between;
   width: 1000px;

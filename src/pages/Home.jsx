@@ -15,10 +15,8 @@ const Home = () => {
           <MenuBox menu={menu}>
             <Menu>회사소개</Menu>
             <Menu>고객센터</Menu>
-            <Link to="/MyEstimatePage/">
-              <Menu>내 견적 조회</Menu>
-            </Link>
-            <MainMenu href="/e_request/">무료 견적 받기</MainMenu>
+            <Menu to="/MyEstimatePage/">내 견적 조회</Menu>
+            <MainMenu to="/e_request/">무료 견적 받기</MainMenu>
           </MenuBox>
           <Menubar
             onClick={() => {
@@ -115,8 +113,10 @@ const MenuBox = styled.div`
   display: flex;
   align-items: center;
   margin-right: 2%;
+  background-color: white;
 
   @media ${device.mobile} {
+    background-color: white;
     margin-top: 10px;
     flex-direction: column;
     align-items: flex-center;
@@ -126,7 +126,7 @@ const MenuBox = styled.div`
   }
 `;
 
-const Menu = styled.a`
+const Menu = styled(Link)`
   font-size: 16px;
   margin-right: 30px;
   cursor: pointer;
@@ -146,7 +146,7 @@ const Menu = styled.a`
   }
 `;
 
-const MainMenu = styled.a`
+const MainMenu = styled(Link)`
   font-size: 16px;
   border: 1px solid black;
   padding: 13px;
@@ -169,7 +169,7 @@ const MainMenu = styled.a`
   }
 `;
 
-const Menubar = styled.a`
+const Menubar = styled.div`
   display: flex;
   align-items: center;
   position: absolute;

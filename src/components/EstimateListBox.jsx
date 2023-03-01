@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import { FaApple } from "react-icons/fa";
 import { Link } from "react-router-dom";

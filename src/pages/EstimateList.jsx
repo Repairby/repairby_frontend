@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useMemo, useState } from "react";
+import styled, { css } from "styled-components";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 // icons
@@ -11,90 +11,21 @@ import { AiOutlineMenu } from "react-icons/ai";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import StarIcon from "@mui/icons-material/Star";
+import useEstimateList from "../hooks/useEstimateList";
+import { EstimateListComponent } from "../components/feature/estimate/EstimateListComponent";
 
 const EstimateList = () => {
   const navigate = useNavigate();
-  const [recommendationClick, setRecommendationClick] = useState(true);
-  const [distanceClick, setDistanceClick] = useState(false);
-  const [careerClick, setCareerClick] = useState(false);
-  const [like, setLike] = useState([]);
-  const [startcareer, setStartcareer] = useState([]);
-  const [distance, setDistance] = useState([]);
-  const [companyEstimateList, setCompanyEstimateList] = useState([]);
-  const location = useLocation();
   const estimateId = location.state.estimateId;
   const token = localStorage.getItem("token");
 
-  useEffect(() => {
-    async function fetchAndSetEstimateData() {
-      axios
-        .get(
-          "/specialist/like",
-          { params: { id: estimateId } },
-          { headers: { Authorization: token } }
-        )
-        .then(response => {
-          console.log(response.data);
-          setLike(response.data);
-          setCompanyEstimateList(response.data);
-          console.log("응답성공");
-        })
-        .catch(error => {
-          console.log("추천순 조회 에러", error);
-          throw new Error(error);
-        });
-    }
-    fetchAndSetEstimateData();
-    axios
-      .get(
-        "/specialist/startcareer",
-        { params: { id: estimateId } },
-        { headers: { Authorization: token } }
-      )
-      .then(response => {
-        console.log(response.data);
-        setStartcareer(response.data);
-        console.log("응답성공");
-      })
-      .catch(error => {
-        console.log("경력순 조회 에러", error);
-        throw new Error(error);
-      });
-    axios
-      .get(
-        "/specialist/distance",
-        { params: { id: estimateId } },
-        { headers: { Authorization: token } }
-      )
-      .then(response => {
-        console.log(response.data);
-        setDistance(response.data);
-        console.log("응답성공");
-      })
-      .catch(error => {
-        console.log("거리순 조회 에러", error);
-        throw new Error(error);
-      });
-  }, []);
+  const { type } = useParams();
+  const { data, error, isLoading } = useEstimateList(estimateId, type);
 
-  const MenuClick = num => {
-    if (num === 1) {
-      setRecommendationClick(true);
-      setDistanceClick(false);
-      setCareerClick(false);
-      setCompanyEstimateList(like);
-    } else if (num === 2) {
-      setRecommendationClick(false);
-      setDistanceClick(true);
-      setCareerClick(false);
-      setCompanyEstimateList(distance);
-    } else if (num === 3) {
-      setRecommendationClick(false);
-      setDistanceClick(false);
-      setCareerClick(true);
-      setCompanyEstimateList(startcareer);
-    } else {
-    }
+  const location = useLocation();
+
+  const onClickMenu = type => {
+    return navigate(`/estimate/${type}`);
   };
 
   return (
@@ -111,65 +42,29 @@ const EstimateList = () => {
         <MoblieScroll>
           <Menu>
             <RecommendationOrder
-              onClick={() => MenuClick(1)}
-              recommendationClick={recommendationClick}
+              onClick={() => onClickMenu("recommadation")}
+              clickedType={type}
             >
               추천순
             </RecommendationOrder>
             <DistanceOrder
-              onClick={() => MenuClick(2)}
-              distanceClick={distanceClick}
+              onClick={() => onClickMenu("distance")}
+              clickedType={type}
             >
               거리순
             </DistanceOrder>
-            <CareerOrder onClick={() => MenuClick(3)} careerClick={careerClick}>
+            <CareerOrder
+              onClick={() => onClickMenu("career")}
+              clickedType={type}
+            >
               경력순
             </CareerOrder>
           </Menu>
-          {companyEstimateList.map((props, index) => (
-            <EstimateBoxWrapper key={index}>
-              <EstimateBox>
-                <TopTitleBox>
-                  <img src={props.imageurlSl} alt="견적리스트 사진" />
-                  <TopDetailWrapper>
-                    <Title>{props.name}</Title>
-                    <Ragion>{props.region}</Ragion>
-                    <RatingBox
-                      sx={{
-                        width: 100,
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Rating
-                        size="small"
-                        name="half-rating-read"
-                        value={Number(props.rating)}
-                        precision={0.5}
-                        readOnly
-                        emptyIcon={
-                          <StarIcon
-                            size="small"
-                            style={{ opacity: 0.55 }}
-                            fontSize="inherit"
-                          />
-                        }
-                      />
-                      <RatingNumber>{props.rating}</RatingNumber>
-                      <RatingReviewNumber>
-                        ({props.ratingReviewNumber})
-                      </RatingReviewNumber>
-                    </RatingBox>
-                  </TopDetailWrapper>
-                </TopTitleBox>
-                <Contents>{props.contents}</Contents>
-                <hr />
-                <Price>
-                  예상 견적 <span>{props.initRepaircost}</span>
-                </Price>
-              </EstimateBox>
-            </EstimateBoxWrapper>
-          ))}
+          {isLoading ? (
+            <div>Loding..</div>
+          ) : (
+            <EstimateListComponent listData={data1} method={method} />
+          )}
         </MoblieScroll>
       </MobileContainer>
     </MobileWrapper>
@@ -317,6 +212,27 @@ const Menu = styled.div`
   padding-bottom: 15px;
 `;
 
+// const Order = styled.div`
+//   switch (clickedType) {
+//     ${p =>
+//       p.isActive
+//         ? css`
+//             color: black;
+//             border: 1px solid black;
+//           `
+//         : css`
+//             color: grey;
+//             border: 1px solid lightgrey;
+//           `}
+//   }
+
+//   border-bottom: ${({ recommendationClick }) => {
+//     return recommendationClick ? "1px solid white" : "1px solid gray";
+//   }};
+//   margin-right: 25px;
+// `;
+
+//FIX: 통합
 const RecommendationOrder = styled.div`
   color: ${({ recommendationClick }) => {
     return recommendationClick ? "white" : "gray";

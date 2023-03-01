@@ -14,7 +14,7 @@ const useEstimate = () => {
     axios
       .all([
         authAxiosInstance("/member/estimates"),
-        authAxiosInstance("/today/estimates"),
+        authAxiosInstance("/today/estimatuseEstimatees"),
       ])
       .then(response => {
         axios.spread((memberResponse, todayResponse) => {

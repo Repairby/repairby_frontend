@@ -16,6 +16,14 @@ const MyEstimatePage = () => {
     setClickedMenu(clickedMenu);
   };
 
+  if (isLoading) {
+    return <div>Loading..</div>;
+  }
+
+  if (isError) {
+    return <div>Error..</div>;
+  }
+
   return (
     //FIX: LAYOUT 적용
     <MobileWrapper>

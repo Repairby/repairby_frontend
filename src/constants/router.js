@@ -2,8 +2,8 @@
 
 export const URL = {
   home: "/",
-  login: "user_login",
-  estimate: "/estimate",
+  user_login: "user_login",
+  estimate: "/estimate/:type",
   estimate_request: "/e_request",
   estimate_me: "/MyEstimatePage",
   request: "/request",

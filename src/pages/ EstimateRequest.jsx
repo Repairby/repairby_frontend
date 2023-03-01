@@ -4,8 +4,8 @@ import EachHeader from "../components/EachHeader";
 import { useNavigate } from "react-router-dom";
 
 const EstimageRequest = () => {
-  const [clickedMenu, setClickedMenu] = useState("");
   const navigate = useNavigate();
+  const [clickedMenu, setClickedMenu] = useState("");
   const token = localStorage.getItem("token");
 
   const onClickMenu = type => {
@@ -14,17 +14,16 @@ const EstimageRequest = () => {
   };
 
   const onClickNext = () => {
-    //FIX:if 중첩 제거
-    if (clickedMenu === "내기기수리" && token === null) {
-      if (token === null) {
-        return navigate("/user_login/");
-      }
-      navigate("/request/");
-    } else if (clickedMenu === "시세조회") {
-      alert("이 서비스는 현재 운영중이 아닙니다");
-    } else {
-      alert("서비스를 선택하세요");
+    if (clickedMenu === "내기기수리") {
+      if (token === null) return navigate("/user_login/");
+      return navigate("/request/");
     }
+
+    if (clickedMenu === "시세조회") {
+      return alert("이 서비스는 현재 운영중이 아닙니다");
+    }
+
+    alert("서비스를 선택하세요");
   };
 
   return (

@@ -15,4 +15,4 @@ const Home = () => {
   const easySum = easyCalculator(easyNumber);
 
   //... page component
-};
+

@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { BsSearch } from "react-icons/bs";
 import axios from "axios";
+import useRepairStore from "../../store/repair";
 
 const PhoneModelChoice3 = ({ setProcessCount, setProductInformation }) => {
+  const { repair, setRepair, increaseProcess } = useRepairStore();
+
   const [phoneModelData, setPhoneModelData] = useState([]);
   const [phoneModelValue, setPhoneModelValue] = useState("");
   const [phoneModelKey, setPhoneModelKey] = useState();
@@ -15,6 +18,10 @@ const PhoneModelChoice3 = ({ setProcessCount, setProductInformation }) => {
         .get("/phone", { params: { phone_name: value } })
         .then(response => {
           setPhoneModelData(response.data);
+          setRepair({
+            ...repair,
+            search: response.data,
+          });
         })
         .catch(error => {
           console.log(error);

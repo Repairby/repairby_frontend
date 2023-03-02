@@ -13,7 +13,7 @@ const RepairRegionChoice5 = ({
   addressDetail,
   image,
 }) => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const [address, setAddress] = useState(""); // 우편 주소
   const [isOpenPost, setIsOpenPost] = useState(false);
 
@@ -26,9 +26,7 @@ const RepairRegionChoice5 = ({
     image: image,
   };
 
-  const onChangeOpenPost = () => {
-    setIsOpenPost(true);
-  };
+  const onChangeOpenPost = () => setIsOpenPost(true);
 
   const onCompletePost = data => {
     let fullAddr = data.address;

@@ -21,3 +21,16 @@ export const axiosInstance = axios.create(baseConfig);
 
 //token 인증이 필요한 instance
 export const authAxiosInstance = axios.create(authConfig);
+
+authAxiosInstance.interceptors.response.use(
+  response => {
+    return response;
+  },
+  error => {
+    if (error.response.status === "401") {
+      //error handling
+    }
+
+    throw error;
+  }
+);

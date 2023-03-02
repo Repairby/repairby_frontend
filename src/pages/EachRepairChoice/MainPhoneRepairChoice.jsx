@@ -60,6 +60,7 @@ const MainPhoneRepairChoice = ({
               }}
               questClick={questClick}
               clickNumber={clickNumber}
+              // isActive={quest.key === clickedItem}
             >
               {quest}
             </QuestBox>

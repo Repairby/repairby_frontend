@@ -1,16 +1,12 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 
 // icons
 import { IoIosArrowBack } from "react-icons/io";
 import { AiOutlineMenu } from "react-icons/ai";
 
 // mui
-import Rating from "@mui/material/Rating";
-import Box from "@mui/material/Box";
-import StarIcon from "@mui/icons-material/Star";
 import useEstimateList from "../hooks/useEstimateList";
 import { EstimateListComponent } from "../components/feature/estimate/EstimateListComponent";
 
@@ -41,7 +37,25 @@ const EstimateList = () => {
         </HeaderContainer>
         <MoblieScroll>
           <Menu>
-            <RecommendationOrder
+            <Order
+              onClick={() => onClickMenu("recommadation")}
+              isActive={type === "recommandation"}
+            >
+              추천순
+            </Order>
+            <Order
+              onClick={() => onClickMenu("distance")}
+              isActive={type === "distance"}
+            >
+              추천순
+            </Order>
+            <Order
+              onClick={() => onClickMenu("career")}
+              isActive={type === "career"}
+            >
+              추천순
+            </Order>
+            {/* <RecommendationOrder
               onClick={() => onClickMenu("recommadation")}
               clickedType={type}
             >
@@ -58,12 +72,12 @@ const EstimateList = () => {
               clickedType={type}
             >
               경력순
-            </CareerOrder>
+            </CareerOrder> */}
           </Menu>
           {isLoading ? (
-            <div>Loding..</div>
+            <div>Loading..</div>
           ) : (
-            <EstimateListComponent listData={data1} method={method} />
+            <EstimateListComponent listData={data} />
           )}
         </MoblieScroll>
       </MobileContainer>
@@ -117,93 +131,6 @@ const MoblieScroll = styled.div`
   overflow-y: auto;
 `;
 
-const EstimateBoxWrapper = styled.div`
-  background-color: white;
-  width: 336px;
-  min-height: 182px;
-  height: auto;
-  border-radius: 10px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-`;
-
-const EstimateBox = styled.div`
-  width: 90%;
-  margin: 15px 0;
-`;
-
-const TopTitleBox = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 18px;
-
-  img {
-    width: 63px;
-    height: 63px;
-    border-radius: 5px;
-  }
-`;
-
-const TopDetailWrapper = styled.div`
-  width: 136px;
-  height: 57px;
-  margin-left: 15px;
-  margin-top: 4px;
-`;
-
-const Title = styled.div`
-  font-weight: bold;
-  margin-bottom: 5px;
-`;
-
-const Ragion = styled.div`
-  font-size: 13px;
-  color: gray;
-`;
-
-const RatingNumber = styled.span`
-  font-size: 13px;
-  line-height: 10px;
-  padding-top: 4px;
-  padding-left: 4px;
-`;
-
-const RatingReviewNumber = styled.span`
-  display: inline;
-  padding-top: 4px;
-  font-size: 12px;
-  font-weight: bold;
-  padding-left: 4px;
-`;
-
-const RatingBox = styled(Box)({
-  marginTop: "3px",
-});
-
-const Contents = styled.div`
-  font-size: 14px;
-  margin-top: 10px;
-  height: auto;
-`;
-
-const Price = styled.div`
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  font-size: 14px;
-  color: gray;
-
-  span {
-    color: black;
-    font-weight: bold;
-    font-size: 1.27rem;
-    margin-left: 5px;
-  }
-`;
-
 const Menu = styled.div`
   display: flex;
   justify-content: center;
@@ -212,25 +139,38 @@ const Menu = styled.div`
   padding-bottom: 15px;
 `;
 
-// const Order = styled.div`
-//   switch (clickedType) {
-//     ${p =>
-//       p.isActive
-//         ? css`
-//             color: black;
-//             border: 1px solid black;
-//           `
-//         : css`
-//             color: grey;
-//             border: 1px solid lightgrey;
-//           `}
-//   }
-
-//   border-bottom: ${({ recommendationClick }) => {
-//     return recommendationClick ? "1px solid white" : "1px solid gray";
-//   }};
-//   margin-right: 25px;
-// `;
+const Order = styled.div`
+  ${({ isActive }) => {
+    isActive
+      ? css`
+          color: white;
+          border-bottom: "1px solid white";
+        `
+      : css`
+          color: gray;
+          border-bottom: "1px solid gray";
+        `;
+  }}/* ${({ type }) => {
+    switch (type) {
+      case "recommandation":
+        return css`
+          color: white;
+        `;
+      case "carrer":
+        return css`
+          padding: 13px 0 13px 70px;
+        `;
+      case "distance":
+        return css`
+          padding: 13px 0;
+        `;
+      default:
+        return css`
+          padding: 13px 0 13px 80px;
+        `;
+    }
+  }} */
+`;
 
 //FIX: 통합
 const RecommendationOrder = styled.div`

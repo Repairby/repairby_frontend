@@ -1,17 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import EachHeader from "../EachHeader";
 
-const MobileLayout = ({ children, title = "", hasEachHeader = "" }) => {
+const MobileLayout = ({ children, title = "" }) => {
   const hasTitle = title !== "";
 
   return (
     <MobileWrapper>
       <MobileContainer>
         {hasTitle && <MainTitle>{title}</MainTitle>}
-        {hasEachHeader && (
-          <EachHeader title="내 폰 수리하기" link="/e_request/" />
-        )}
         {children}
       </MobileContainer>
     </MobileWrapper>

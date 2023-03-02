@@ -33,6 +33,8 @@ const PhoneRepair = () => {
   // 이미지
   const [image, setImage] = useState();
 
+  const increaseProcess = () => setProcessCount(10);
+
   return (
     <MobileWrapper>
       <MobileContainer>
